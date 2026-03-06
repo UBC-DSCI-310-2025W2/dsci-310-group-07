@@ -26,3 +26,4 @@ EXPOSE 8888
 
 # run jupyter lab inside the environment
 CMD ["conda", "run", "--no-capture-output", "-n", "project_env", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''"]
+
