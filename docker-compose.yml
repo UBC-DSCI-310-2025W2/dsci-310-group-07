@@ -1,0 +1,7 @@
+services:
+  test-env:
+    image: justkwoo/dsci310-group-07:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workplace
