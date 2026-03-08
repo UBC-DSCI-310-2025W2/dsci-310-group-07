@@ -1,0 +1,12 @@
+name: project_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14.3
+  - jupyterlab=4.5.5
+  - matplotlib=3.10.8
+  - pandas=3.0.1
+  - scikit-learn=1.8.0
+  - pip
+  - pip:
+      - ucimlrepo==0.0.7
