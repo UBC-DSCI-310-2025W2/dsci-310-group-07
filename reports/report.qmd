@@ -24,7 +24,17 @@ The target variable is wine quality, which is measured on a numerical scale. Thi
 
 ## Exploratory Data Analysis
 
+![](../results/quality_distribution.png){#fig-quality}
 
+Figure @fig-quality shows the distribution of wine quality scores across the dataset.
+
+![](../results/feature_distribution.png){#fig-features}
+
+Figure @fig-features illustrates the distribution of key physicochemical variables.
+
+![](../results/correlation_matrix.png){#fig-corr}
+
+Figure @fig-corr displays the correlation between variables, highlighting relationships with wine quality.
 
 ## Methods
 
@@ -35,6 +45,10 @@ Machine learning techniques are commonly applied in predictive modeling tasks du
 Model performance was assessed using relevant evaluation metrics to determine how accurately wine quality could be predicted.
 
 ## Results
+
+![](../results/confusion_matrix.png){#fig-confusion}
+
+Figure @fig-confusion shows the performance of the model on test data using a confusion matrix.
 
 ## Discussion
 
