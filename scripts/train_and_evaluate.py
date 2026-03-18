@@ -46,7 +46,7 @@ def save_conf_mat(y_test, pred, path_to_output):
     cm = confusion_matrix(y_test, pred, labels=labels)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot(cmap="Blues")
-    plt.title("Figure 5: Test Data Confusion Matrix")
+    plt.title("Test Data Confusion Matrix")
     
     # save plot
     path_to_save = f'{path_to_output}/confusion_matrix.png'
