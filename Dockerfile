@@ -7,6 +7,7 @@ COPY conda-lock.yml /tmp/conda-lock.yml
 # install conda forge and cond lock, create environment and install its corresponding packages from lock file, and activate environment
 RUN conda install -c conda-forge conda-lock -y && \
     conda-lock install -n project_env /tmp/conda-lock.yml && \
+    conda install -n project_env -c conda-forge quarto -y && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
 
 SHELL ["/bin/bash", "-l", "-c"]
