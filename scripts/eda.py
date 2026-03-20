@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 '''
 function to save feature descripition table in the specified path
 '''
-def save_feature_description(path_to_output):
+def save_feature_description(path_to_save):
     # define table content
     table_data = [
         ["fixed_acidity", "Feature", "Continuous", "g/dm³", "Fixed acids (primarily tartaric acid) that do not evaporate easily.", "No"],
@@ -27,8 +27,7 @@ def save_feature_description(path_to_output):
     
     # save df
     df = pd.DataFrame(table_data, columns=feature_names)
-    path_to_save = f'{path_to_output}/feature_description.csv'
-    df.to_csv(path_to_save)
+    df.to_csv(path_to_save, index=False)
     
     print(f'feature description table saved in {path_to_save}')
     
@@ -36,7 +35,7 @@ def save_feature_description(path_to_output):
 '''
 function to save pie chart that presents data split ratio of train, validation, and test data
 '''
-def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_output):
+def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
     # compute size for each dataset
     data_size = len(X_train) + len(X_valid) + len(X_test)
     train_set_size = len(X_train) / data_size
@@ -55,7 +54,6 @@ def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_output):
     plt.title('Data Split Proportion')
     
     # save plot
-    path_to_save = f'{path_to_output}/data_split_pie_chart.png'
     plt.savefig(path_to_save)
     
     print(f'Data split pie chart saved in {path_to_save}')
@@ -64,7 +62,7 @@ def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_output):
 '''
 function to save wine quality histogram of y_train
 '''
-def save_wine_quality_hist(y_train, path_to_output):
+def save_wine_quality_hist(y_train, path_to_save):
     # define histogram
     plt.figure(figsize=(7,7))
     y_train.value_counts().sort_index().plot(kind="bar")
@@ -74,7 +72,6 @@ def save_wine_quality_hist(y_train, path_to_output):
     plt.xticks(rotation=0)
     
     # save plot
-    path_to_save = f'{path_to_output}/wine_quality_histogram.png'
     plt.savefig(path_to_save)
     
     print(f'Wine quality histogram saved in {path_to_save}')
@@ -83,14 +80,13 @@ def save_wine_quality_hist(y_train, path_to_output):
 '''
 function to save feature distributions of X_train
 '''
-def save_feature_dist(X_train, path_to_output):
+def save_feature_dist(X_train, path_to_save):
     # define histograms
     X_train.hist(bins=20, figsize=(12,10))
     plt.suptitle("Feature Distributions")
     plt.tight_layout()
     
     # save plot
-    path_to_save = f'{path_to_output}/feature_distributions.png'
     plt.savefig(path_to_save)
     
     print(f'Feature distributions saved in {path_to_save}')
@@ -99,7 +95,7 @@ def save_feature_dist(X_train, path_to_output):
 '''
 function to save correlation matrix 
 '''
-def corr_mat(X_train, y_train, path_to_output):
+def save_corr_mat(X_train, y_train, path_to_save):
     # define corr mat
     corr = pd.concat([X_train, y_train], axis=1).corr()
     
@@ -112,7 +108,6 @@ def corr_mat(X_train, y_train, path_to_output):
     plt.tight_layout()
     
     # save plot
-    path_to_save = f'{path_to_output}/correlation_matrix.png'
     plt.savefig(path_to_save)
     
     print(f'Correlation Matrix saved in {path_to_save}')
@@ -122,7 +117,11 @@ if __name__ == "__main__":
     # define parser and add args
     parser = argparse.ArgumentParser(description='Save tables and figures exploratory data visualizations and tables')
     parser.add_argument('--path_to_processed_data', type=str, help='Path to train, validation, and test data')
-    parser.add_argument('--path_to_output', type=str, help='Path to save plots and tables')
+    parser.add_argument('--path_to_feature_description', type=str, help='Path to save feature description table')
+    parser.add_argument('--path_to_pie_chart', type=str, help='Path to save data split pie chart')
+    parser.add_argument('--path_to_wine_quality_hist', type=str, help='Path to save wine quality histogram')
+    parser.add_argument('--path_to_feature_dist', type=str, help='Path to save feature distributions')
+    parser.add_argument('--path_to_corr_mat', type=str, help='Path to save correlation matrix')
 
     # parse args
     args = parser.parse_args()
@@ -135,9 +134,9 @@ if __name__ == "__main__":
     X_test = pd.read_csv(f'{args.path_to_processed_data}/test_data/X_test.csv')
     
     # save plots and tables
-    save_feature_description(args.path_to_output)
-    save_data_split_pie_chart(X_train, X_valid, X_test, args.path_to_output)
-    save_wine_quality_hist(y_train, args.path_to_output)
-    save_feature_dist(X_train, args.path_to_output)
-    corr_mat(X_train, y_train, args.path_to_output)
+    save_feature_description(args.path_to_feature_description)
+    save_data_split_pie_chart(X_train, X_valid, X_test, args.path_to_pie_chart)
+    save_wine_quality_hist(y_train, args.path_to_wine_quality_hist)
+    save_feature_dist(X_train, args.path_to_feature_dist)
+    save_corr_mat(X_train, y_train, args.path_to_corr_mat)
     

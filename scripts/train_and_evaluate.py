@@ -10,12 +10,11 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 '''
 function to save best model parameters fround from grid search into csv file
 '''
-def save_best_params(grid_search, path_to_output):
+def save_best_params(grid_search, path_to_save):
     # save best parmams as a df 
     df = pd.DataFrame([grid_search.best_params_])
     
     # define path to save and save it in the specified csv file
-    path_to_save = f'{path_to_output}/best_model_parameters.csv'
     df.to_csv(path_to_save, index=False)
     
     print(f'Best model parameters saved in {path_to_save}')
@@ -24,12 +23,11 @@ def save_best_params(grid_search, path_to_output):
 '''
 function to save model predictions on test data
 '''
-def save_test_pred(pred, path_to_output):
+def save_test_pred(pred, path_to_save):
     # save best parmams as a df 
     df = pd.DataFrame(pred, columns=['predicted_quality'])
     
     # define path to save and save it in the specified csv file
-    path_to_save = f'{path_to_output}/test_prediction.csv'
     df.to_csv(path_to_save, index=False)
     
     print(f'Test prediction saved in {path_to_save}')
@@ -38,7 +36,7 @@ def save_test_pred(pred, path_to_output):
 '''
 function to construct confusion matrix on test data and save it in the specified path
 '''
-def save_conf_mat(y_test, pred, path_to_output):
+def save_conf_mat(y_test, pred, path_to_save):
     # manually specify labels to avoid removig labels with no samples
     labels = [i for i in range(11)]
     
@@ -49,7 +47,6 @@ def save_conf_mat(y_test, pred, path_to_output):
     plt.title("Test Data Confusion Matrix")
     
     # save plot
-    path_to_save = f'{path_to_output}/confusion_matrix.png'
     plt.savefig(path_to_save)
     
     print(f'Confusion matrix saved in {path_to_save}')
@@ -60,7 +57,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Train and evaluate model and save evaluation results')
     parser.add_argument('--path_to_processed_data', type=str, help='Path to train, validation, and test data')
     parser.add_argument('--path_to_prediction_data', type=str, help='Path to save test prediction data')
-    parser.add_argument('--path_to_output', type=str, help='Path to save best model parameters and evaluation plot and table')
+    parser.add_argument('--path_to_model_params', type=str, help='Path to save best model parameters')
+    parser.add_argument('--path_to_conf_mat', type=str, help='Path to save confusion matrix on test data')
     
     # parse args
     args = parser.parse_args()
@@ -89,7 +87,7 @@ if __name__ == "__main__":
     grid_search.fit(X_train, y_train.values.ravel())
 
     # save best params
-    save_best_params(grid_search, args.path_to_output)
+    save_best_params(grid_search, args.path_to_model_params)
     
     # retrieve best performing model
     best_model = grid_search.best_estimator_
@@ -101,4 +99,4 @@ if __name__ == "__main__":
     save_test_pred(pred, args.path_to_prediction_data)
     
     # save confusion matrix
-    save_conf_mat(y_test, pred, args.path_to_output)
+    save_conf_mat(y_test, pred, args.path_to_conf_mat)
