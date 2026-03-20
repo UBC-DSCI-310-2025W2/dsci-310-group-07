@@ -1,0 +1,13 @@
+Feature Name ,Role,Type,Units,Description,Missing Values
+fixed_acidity,Feature,Continuous,g/dm³,Fixed acids (primarily tartaric acid) that do not evaporate easily.,No
+volatile_acidity,Feature,Continuous,g/dm³,Amount of acetic acid in wine; high levels can lead to an unpleasant vinegar taste.,No
+citric_acid,Feature,Continuous,g/dm³,"Citric acid content, which can add freshness and flavor to wine.",No
+residual_sugar,Feature,Continuous,g/dm³,Amount of sugar remaining after fermentation stops.,No
+chlorides,Feature,Continuous,g/dm³,Salt content in the wine.,No
+free_sulfur_dioxide,Feature,Continuous,mg/dm³,Free form of sulfur dioxide that prevents microbial growth and oxidation.,No
+total_sulfur_dioxide,Feature,Continuous,mg/dm³,Total amount of sulfur dioxide (free + bound forms).,No
+density,Feature,Continuous,g/cm³,"Density of the wine, influenced by alcohol and sugar content.",No
+pH,Feature,Continuous,–,Acidity level of the wine; lower values indicate higher acidity.,No
+sulphates,Feature,Continuous,g/dm³,"Potassium sulphate concentration, contributing to sulfur dioxide levels and preservation.",No
+alcohol,Feature,Continuous,% (vol),Alcohol content of the wine.,No
+quality,Target,Integer,Score (0–10),Wine quality score based on expert sensory evaluation.,No
