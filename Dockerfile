@@ -4,11 +4,15 @@ FROM condaforge/miniforge3:25.9.1-0
 # copy lock file
 COPY conda-lock.yml /tmp/conda-lock.yml
 
-# install conda forge and cond lock, create environment and install its corresponding packages from lock file, and activate environment
-RUN conda install -c conda-forge conda-lock -y && \
+# install conda-lock, create environment, and install Quarto manually
+RUN conda install -c conda-forge conda-lock wget -y && \
     conda-lock install -n project_env /tmp/conda-lock.yml && \
-    conda install -n project_env -c conda-forge quarto -y && \
+    wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.9.36/quarto-1.9.36-linux-arm64.tar.gz -O /tmp/quarto.tar.gz && \
+    mkdir -p /opt/quarto && \
+    tar -xzf /tmp/quarto.tar.gz -C /opt/quarto --strip-components=1 && \
+    ln -s /opt/quarto/bin/quarto /usr/local/bin/quarto && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
+
 
 SHELL ["/bin/bash", "-l", "-c"]
 
