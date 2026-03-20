@@ -38,40 +38,36 @@ Model performance was assessed using relevant evaluation metrics to determine ho
 
 # Exploratory Data Analysis
 
-![](../output/eda/wine_quality_histogram.png){#fig-quality width=70%}
+## Variable Description
+
+```{python}
+#| label: tbl-variables
+#| tbl-cap: "Description of dataset variables"
+
+import pandas as pd
+pd.read_csv("../output/eda/feature_description.csv")
+
+```
+ @tbl-variables summarizes the variables included in the dataset, including their roles, types, and descriptions.
+
+![Distribution of wine quality scores](../output/eda/wine_quality_histogram.png){#fig-quality width=70%}
 
  @fig-quality shows the distribution of wine quality scores. Most wines fall within mid-range values, particularly between scores of 5 and 7, indicating a class imbalance with fewer extreme quality ratings.
 
-![](../output/eda/data_split_pie_chart.png){#fig-split width=70%}
+![Data split proportions](../output/eda/data_split_pie_chart.png){#fig-split width=70%}
 
  @fig-split illustrates the proportion of data allocated to training, validation, and test sets, ensuring proper evaluation of model performance.
 
-![](../output/eda/feature_distributions.png){#fig-features width=70%}
+![Feature distributions](../output/eda/feature_distributions.png){#fig-features width=70%}
 
  @fig-features shows the distribution of key physicochemical variables. Many features exhibit skewness and varying ranges, with some variables displaying extreme values.
 
-![](../output/eda/correlation_matrix.png){#fig-corr width=70%}
+![Correlation matrix](../output/eda/correlation_matrix.png){#fig-corr width=70%}
 
  @fig-corr displays correlations between variables. Most features show weak relationships with wine quality, suggesting that quality depends on multiple interacting factors rather than a single dominant variable.
 
 # Results
 
-![](../output/prediction/confusion_matrix.png){#fig-conf width=70%}
+![Confusion matrix on test data](../output/prediction/confusion_matrix.png){#fig-conf width=70%}
 
  @fig-conf shows the performance of the random forest model on test data. The confusion matrix indicates moderate predictive performance, with stronger accuracy for mid-range classes and weaker performance for less frequent classes.
-
-The model achieved moderate accuracy, but performance varied across classes due to class imbalance. Metrics such as precision, recall, and F1-score indicate that the model struggles to correctly classify minority classes.
-
-# Discussion
-
-The exploratory data analysis suggests that most wines in the dataset fall into average quality categories, with ratings concentrated around the middle of the scale. This reflects class imbalance, where extremely high or low quality wines are relatively uncommon.
-
-The distributions of physicochemical variables indicate that most values lie within typical ranges, although some variables such as residual sugar and chlorides exhibit wider spreads and occasional extreme values. Several features are right-skewed, indicating that most wines have lower values with a few higher observations.
-
-The correlation analysis shows that no single variable strongly determines wine quality. Instead, quality is influenced by a combination of multiple chemical characteristics.
-
-The random forest model achieved moderate predictive performance, with reduced accuracy for minority classes. This limitation is largely due to class imbalance and the complexity of the prediction task.
-
-Future work could address class imbalance using techniques such as oversampling or class weighting. Additionally, more advanced models such as gradient boosting or neural networks may improve predictive performance. Incorporating additional data sources may also enhance model accuracy.
-
-# References
