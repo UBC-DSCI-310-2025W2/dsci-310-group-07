@@ -65,7 +65,7 @@ function to save wine quality histogram of y_train
 def save_wine_quality_hist(y_train, path_to_save):
     # define histogram
     plt.figure(figsize=(7,7))
-    y_train.value_counts().sort_index().plot(kind="bar")
+    y_train.squeeze().value_counts().sort_index().plot(kind="bar")
     plt.title("Distribution of Wine Quality")
     plt.xlabel("Quality")
     plt.ylabel("Count")
