@@ -31,16 +31,16 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
 ```
 
-## Summary
+# Summary
 This study explored the physicochemical characteristics of white wines and their relationship with quality ratings using exploratory data analysis and machine learning. The analysis showed that most wines fall within mid-range quality scores, with relatively few very low or very high ratings. Several chemical variables exhibit skewed distributions and occasional extreme values, while correlations suggest that wine quality is influenced by multiple factors rather than a single dominant variable. A random forest model was used to predict wine quality, achieving moderate accuracy but showing lower performance on minority classes due to class imbalance. These findings highlight the complexity of predicting wine quality and suggest that future work could improve results by addressing class imbalance and exploring more advanced models.
 
 <br>
 
-## Introduction
+# Introduction
 Wine is one of the most widely consumed beverages in the world, valued for its taste, cultural significance, and sensory qualities. Determining wine quality, even for expert tasters, can be challenging. Determining wine quality, even for expert tasters, can be challenging because sensory evaluation is inherently subjective and influenced by multiple factors [@jackson2020]. Vinho verde wine is produced in the Minho region of northern Portugal and is known for its light and fresh characteristics. In this project, we focus on white vinho verde wine and investigate whether its physicochemical properties can be used to predict wine quality. To answer this question, we use a dataset from the UC Irvine Machine Learning Repository [@cortez2009] and apply predictive modeling techniques to explore relationships between chemical measurements and sensory quality scores.
 
 
-### Dataset Description
+## Dataset Description
 The [Wine Quality dataset](https://archive-beta.ics.uci.edu/dataset/186/wine+quality) contains physicochemical measurements of Portuguese *Vinho Verde* wines. Each observation corresponds to a wine sample that was evaluated using laboratory tests and sensory analysis by wine experts.
 
 The dataset includes 11 physicochemical input variables (e.g., acidity, pH, alcohol content) and 1 target variable representing wine quality. Wine quality scores were assigned as the median of at least three expert evaluations, with ratings ranging from 0 (very bad) to 10 (excellent).
@@ -65,14 +65,14 @@ feature_df.head(20).style.hide(axis="index")
 
 <br>
 
-## Method
-### Dataset & Data Cleaning
+# Method
+## Dataset & Data Cleaning
 The Wine Quality dataset is retrieved directly from the **UCI Machine Learning Repository** using the `ucimlrepo` library. The dataset is returned with the features (input variables) and the target variable (wine quality score) stored separately. 
 
 To recreate the original dataset structure, we combine the features and target into a single DataFrame using `pd.concat()`. This produces a table where each row represents a wine sample and each column represents a physicochemical property or the quality score. However, this results in a DataFrame that contains both red and white wine data. Since we only aim to use white wine data, we clean the data by dropping the first 1599 samples, which correspond to red wine data, leaving only the 4898 white wine samples.
 
 
-### EDA
+## Exploratory Data Analysis
 Since EDA is generally performed after splitting the data, we first split the dataset into training and test sets, and then perform EDA using the training set. The dataset is initially split with a 70/30 ratio, and train set is further split into train and validation sets. Consequently, train set contains 2708 samples, validation set contains 720 samples, and test set contains 1470 samples. @fig-pie-chart also visualizes the proportion of each dataset.
 
 We examine the basic structure of the dataset by checking its shape, column names, data types, missing values, and statistical summary of each feature using the following functions:
@@ -89,7 +89,7 @@ We generate histograms for each feature in the dataset using `df.hist()`. This a
 
 Lastly, we compute the correlation matrix using `df.corr()` to measure the linear relationships between all numerical variables in the dataset. The matrix is then visualized using `plt.imshow()`, where each cell represents the correlation between two variables.
 
-### Prediction
+## Prediction
 To model wine quality, we require a method that can capture complex and potentially non-linear relationships between physicochemical features such as acidity, sugar content, and alcohol level. Preliminary exploration suggests that these variables may interact in ways that are not well represented by simple linear models. Additionally, the dataset contains multiple continuous predictors with possible correlations and varying scales, making model flexibility important. For this reason, we turn to the Random Forest algorithm, an ensemble learning method that builds multiple decision trees and aggregates their predictions. Random Forest is well-suited for this task because it can handle non-linear patterns, is robust to overfitting through averaging, and provides insight into feature importance, allowing us to better understand which factors most strongly influence wine quality.
 
 Since the random forest classifier is scale-invariant, we do not scale the data before training.
@@ -100,16 +100,16 @@ The best model is evaluated using a classification report, which shows that the 
 
 <br>
 
-## Results
-### Exploratory Data Analysis
+# Results
+## Exploratory Data Analysis
 ```{python}
 # load train data
 X_train = pd.read_csv('../data/processed/train_data/X_train.csv')
 ```
 
-![Data Split Proportions](../output/eda/data_split_pie_chart.png){#fig-pie-chart width=70%}
+![Data Split Proportion](../output/eda/data_split_pie_chart.png){#fig-pie-chart width=70%}
 
-#### Inspecting the dataset structure
+### Dataset Structure Inspection
 ```{python}
 print("\nData types and info:")
 X_train.info()
@@ -121,11 +121,13 @@ X_train.isnull().sum()
 ```
 
 ```{python}
-print("Summary statistics:")
+#| label: tbl-summary-stat
+#| tbl-cap: Dataset Summary Statistics
+
 X_train.describe()
 ```
 
-![Distribution of Wine Auality Scores](../output/eda/wine_quality_histogram.png){#fig-wine-quality-hist width=70%}
+![Distribution of Wine Quality Scores](../output/eda/wine_quality_histogram.png){#fig-wine-quality-hist width=70%}
 
  @fig-wine-quality-hist shows that the distribution of wine quality scores is concentrated around the middle values. Most wines are rated 5, 6, or 7, with quality 6 being the most frequent. Very few wines receive extreme ratings such as 3 or 9, indicating that the dataset contains mostly average-quality wines and relatively few very poor or excellent samples. This indicates a significant class imbalance. Moreover, although the UCI Machine Learning Repository lists the wine quality feature ranging from 0 to 10, there are no samples for 0, 1, 2 and 10, and thus the model will never encounter these classes during training. These issues raise concerns that model may perform poorly on the minority classes, which correspond to extremely low or high quality wines.
 
@@ -140,10 +142,10 @@ X_train.describe()
 @fig-corr-mat shows the strength and direction of linear relationships between the variables. Overall, most physicochemical features have relatively weak correlations with wine quality, suggesting that quality is influenced by multiple factors rather than a single dominant variable. Alcohol content tends to have a positive relationship with quality, while variables such as volatile acidity and density show negative relationships. Many of the input variables also show moderate correlations with each other, indicating that some chemical properties of the wine are related.
 
 
-### Prediction
+## Prediction
 ```{python}
 #| label: tbl-model-params
-#| tbl-cap: Table of best model parameters
+#| tbl-cap: Best Performing Model Parameters
 
 params_df = pd.read_csv('../output/prediction/best_model_parameters.csv')
 params_df.head().style.hide(axis='index')
@@ -157,6 +159,7 @@ As shown in @tbl-model-params, the best parameters fround from grid search are `
 pred = pd.read_csv('../data/processed/prediction/test_prediction.csv')
 y_test = pd.read_csv('../data/processed/test_data/y_test.csv')
 
+print('Test Data Classification Report:')
 print(classification_report(pred, y_test, zero_division=0))
 ```
 
@@ -184,7 +187,7 @@ However, even the dominant classes, 5, 6, and 7, exhibit a moderate to significa
 
 <br>
 
-## Discussion
+# Discussion
 The exploratory data analysis suggests that most wines in the dataset fall into average quality categories, with ratings concentrated around the middle of the scale. This indicates that class imbalance in which extremely high or low quality wines are relatively uncommon. The distributions of many physicochemical variables show that most measurements lie within typical ranges, although some variables such as residual sugar and chlorides exhibit wider spreads and occasional extreme values. Several variables also appear right-skewed, meaning most wines have relatively small values with a few larger observations. This pattern suggests that certain chemical properties occur at low levels for most wines but can occasionally be much higher. The correlation analysis further indicates that no single variable strongly determines wine quality. Instead, wine quality appears to be influenced by a combination of multiple chemical characteristics, with some variables showing modest positive or negative relationships with the quality score.
 
 The random forest classifier with `max_depth` of 20 and `n_estimator` of 100 is achieved through grid search. Our model achieves a macro test accuracy of 65%, a precision of 34%, a recall of 50%, and an F1-score of 38%, showing a sign of underperformance in predicting white wine quality. Since our task is more complex than binary classification, this result is expected, as the random forest model is not the most powerful model for this task compared to other approaches such as MLPs. Similar studies have found that machine learning can identify relationships between chemical composition and wine quality, but prediction accuracy often depends on model choice and feature representation [@rodriguez2015; @sagi2018]. Moreover, the model exhibits a biased performance favoring the dominant classes. This behavior is expected as currently no method is applied to handle class imbalance. Hence, for future work, we suggest to handle class imbalance with up/oversampling or reweighing to improve fairness and perfrmance across all classes.
@@ -192,4 +195,4 @@ The random forest classifier with `max_depth` of 20 and `n_estimator` of 100 is 
 Future work could explore methods to address class imbalance, such as oversampling or class weighting, to improve prediction across all quality levels. In addition, testing more advanced models such as gradient boosting or neural networks may help capture more complex relationships between variables. Further research could also examine whether additional information, such as sensory or production data, improves predictive performance.
 
 
-## References
+# References

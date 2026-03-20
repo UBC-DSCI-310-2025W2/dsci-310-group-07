@@ -101,9 +101,21 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#method" id="toc-method" class="nav-link" data-scroll-target="#method">Method</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link" data-scroll-target="#dataset-description">Dataset Description</a></li>
+  </ul></li>
+  <li><a href="#method" id="toc-method" class="nav-link" data-scroll-target="#method">Method</a>
+  <ul class="collapse">
+  <li><a href="#dataset-data-cleaning" id="toc-dataset-data-cleaning" class="nav-link" data-scroll-target="#dataset-data-cleaning">Dataset &amp; Data Cleaning</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#exploratory-data-analysis-1" id="toc-exploratory-data-analysis-1" class="nav-link" data-scroll-target="#exploratory-data-analysis-1">Exploratory Data Analysis</a></li>
+  <li><a href="#prediction-1" id="toc-prediction-1" class="nav-link" data-scroll-target="#prediction-1">Prediction</a></li>
+  </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -136,16 +148,16 @@ window.Quarto = {
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="summary" class="level1">
+<h1>Summary</h1>
 <p>This study explored the physicochemical characteristics of white wines and their relationship with quality ratings using exploratory data analysis and machine learning. The analysis showed that most wines fall within mid-range quality scores, with relatively few very low or very high ratings. Several chemical variables exhibit skewed distributions and occasional extreme values, while correlations suggest that wine quality is influenced by multiple factors rather than a single dominant variable. A random forest model was used to predict wine quality, achieving moderate accuracy but showing lower performance on minority classes due to class imbalance. These findings highlight the complexity of predicting wine quality and suggest that future work could improve results by addressing class imbalance and exploring more advanced models.</p>
 <p><br></p>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <p>Wine is one of the most widely consumed beverages in the world, valued for its taste, cultural significance, and sensory qualities. Determining wine quality, even for expert tasters, can be challenging. Determining wine quality, even for expert tasters, can be challenging because sensory evaluation is inherently subjective and influenced by multiple factors <span class="citation" data-cites="jackson2020">(<a href="#ref-jackson2020" role="doc-biblioref">Jackson 2020</a>)</span>. Vinho verde wine is produced in the Minho region of northern Portugal and is known for its light and fresh characteristics. In this project, we focus on white vinho verde wine and investigate whether its physicochemical properties can be used to predict wine quality. To answer this question, we use a dataset from the UC Irvine Machine Learning Repository <span class="citation" data-cites="cortez2009">(<a href="#ref-cortez2009" role="doc-biblioref">Cortez et al. 2009</a>)</span> and apply predictive modeling techniques to explore relationships between chemical measurements and sensory quality scores.</p>
-<section id="dataset-description" class="level3">
-<h3 class="anchored" data-anchor-id="dataset-description">Dataset Description</h3>
+<section id="dataset-description" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-description">Dataset Description</h2>
 <p>The <a href="https://archive-beta.ics.uci.edu/dataset/186/wine+quality">Wine Quality dataset</a> contains physicochemical measurements of Portuguese <em>Vinho Verde</em> wines. Each observation corresponds to a wine sample that was evaluated using laboratory tests and sensory analysis by wine experts.</p>
 <p>The dataset includes 11 physicochemical input variables (e.g., acidity, pH, alcohol content) and 1 target variable representing wine quality. Wine quality scores were assigned as the median of at least three expert evaluations, with ratings ranging from 0 (very bad) to 10 (excellent).</p>
 <p>There are two datasets exist in the Wine Quality dataset collection:</p>
@@ -162,117 +174,117 @@ window.Quarto = {
 Table&nbsp;1: Description of dataset variables
 </figcaption>
 <div aria-describedby="tbl-feature-description-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="186">
 <style type="text/css">
 </style>
 
-<table id="T_975e3" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table id="T_c4e60" class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_975e3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Feature Name</th>
-<th id="T_975e3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Role</th>
-<th id="T_975e3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Type</th>
-<th id="T_975e3_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Units</th>
-<th id="T_975e3_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Description</th>
-<th id="T_975e3_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Missing Values</th>
+<th id="T_c4e60_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Feature Name</th>
+<th id="T_c4e60_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Role</th>
+<th id="T_c4e60_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Type</th>
+<th id="T_c4e60_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Units</th>
+<th id="T_c4e60_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Description</th>
+<th id="T_c4e60_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Missing Values</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_975e3_row0_col0" class="data row0 col0">fixed_acidity</td>
-<td id="T_975e3_row0_col1" class="data row0 col1">Feature</td>
-<td id="T_975e3_row0_col2" class="data row0 col2">Continuous</td>
-<td id="T_975e3_row0_col3" class="data row0 col3">g/dm³</td>
-<td id="T_975e3_row0_col4" class="data row0 col4">Fixed acids (primarily tartaric acid) that do not evaporate easily.</td>
-<td id="T_975e3_row0_col5" class="data row0 col5">No</td>
+<td id="T_c4e60_row0_col0" class="data row0 col0">fixed_acidity</td>
+<td id="T_c4e60_row0_col1" class="data row0 col1">Feature</td>
+<td id="T_c4e60_row0_col2" class="data row0 col2">Continuous</td>
+<td id="T_c4e60_row0_col3" class="data row0 col3">g/dm³</td>
+<td id="T_c4e60_row0_col4" class="data row0 col4">Fixed acids (primarily tartaric acid) that do not evaporate easily.</td>
+<td id="T_c4e60_row0_col5" class="data row0 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row1_col0" class="data row1 col0">volatile_acidity</td>
-<td id="T_975e3_row1_col1" class="data row1 col1">Feature</td>
-<td id="T_975e3_row1_col2" class="data row1 col2">Continuous</td>
-<td id="T_975e3_row1_col3" class="data row1 col3">g/dm³</td>
-<td id="T_975e3_row1_col4" class="data row1 col4">Amount of acetic acid in wine; high levels can lead to an unpleasant vinegar taste.</td>
-<td id="T_975e3_row1_col5" class="data row1 col5">No</td>
+<td id="T_c4e60_row1_col0" class="data row1 col0">volatile_acidity</td>
+<td id="T_c4e60_row1_col1" class="data row1 col1">Feature</td>
+<td id="T_c4e60_row1_col2" class="data row1 col2">Continuous</td>
+<td id="T_c4e60_row1_col3" class="data row1 col3">g/dm³</td>
+<td id="T_c4e60_row1_col4" class="data row1 col4">Amount of acetic acid in wine; high levels can lead to an unpleasant vinegar taste.</td>
+<td id="T_c4e60_row1_col5" class="data row1 col5">No</td>
 </tr>
 <tr class="odd">
-<td id="T_975e3_row2_col0" class="data row2 col0">citric_acid</td>
-<td id="T_975e3_row2_col1" class="data row2 col1">Feature</td>
-<td id="T_975e3_row2_col2" class="data row2 col2">Continuous</td>
-<td id="T_975e3_row2_col3" class="data row2 col3">g/dm³</td>
-<td id="T_975e3_row2_col4" class="data row2 col4">Citric acid content, which can add freshness and flavor to wine.</td>
-<td id="T_975e3_row2_col5" class="data row2 col5">No</td>
+<td id="T_c4e60_row2_col0" class="data row2 col0">citric_acid</td>
+<td id="T_c4e60_row2_col1" class="data row2 col1">Feature</td>
+<td id="T_c4e60_row2_col2" class="data row2 col2">Continuous</td>
+<td id="T_c4e60_row2_col3" class="data row2 col3">g/dm³</td>
+<td id="T_c4e60_row2_col4" class="data row2 col4">Citric acid content, which can add freshness and flavor to wine.</td>
+<td id="T_c4e60_row2_col5" class="data row2 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row3_col0" class="data row3 col0">residual_sugar</td>
-<td id="T_975e3_row3_col1" class="data row3 col1">Feature</td>
-<td id="T_975e3_row3_col2" class="data row3 col2">Continuous</td>
-<td id="T_975e3_row3_col3" class="data row3 col3">g/dm³</td>
-<td id="T_975e3_row3_col4" class="data row3 col4">Amount of sugar remaining after fermentation stops.</td>
-<td id="T_975e3_row3_col5" class="data row3 col5">No</td>
+<td id="T_c4e60_row3_col0" class="data row3 col0">residual_sugar</td>
+<td id="T_c4e60_row3_col1" class="data row3 col1">Feature</td>
+<td id="T_c4e60_row3_col2" class="data row3 col2">Continuous</td>
+<td id="T_c4e60_row3_col3" class="data row3 col3">g/dm³</td>
+<td id="T_c4e60_row3_col4" class="data row3 col4">Amount of sugar remaining after fermentation stops.</td>
+<td id="T_c4e60_row3_col5" class="data row3 col5">No</td>
 </tr>
 <tr class="odd">
-<td id="T_975e3_row4_col0" class="data row4 col0">chlorides</td>
-<td id="T_975e3_row4_col1" class="data row4 col1">Feature</td>
-<td id="T_975e3_row4_col2" class="data row4 col2">Continuous</td>
-<td id="T_975e3_row4_col3" class="data row4 col3">g/dm³</td>
-<td id="T_975e3_row4_col4" class="data row4 col4">Salt content in the wine.</td>
-<td id="T_975e3_row4_col5" class="data row4 col5">No</td>
+<td id="T_c4e60_row4_col0" class="data row4 col0">chlorides</td>
+<td id="T_c4e60_row4_col1" class="data row4 col1">Feature</td>
+<td id="T_c4e60_row4_col2" class="data row4 col2">Continuous</td>
+<td id="T_c4e60_row4_col3" class="data row4 col3">g/dm³</td>
+<td id="T_c4e60_row4_col4" class="data row4 col4">Salt content in the wine.</td>
+<td id="T_c4e60_row4_col5" class="data row4 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row5_col0" class="data row5 col0">free_sulfur_dioxide</td>
-<td id="T_975e3_row5_col1" class="data row5 col1">Feature</td>
-<td id="T_975e3_row5_col2" class="data row5 col2">Continuous</td>
-<td id="T_975e3_row5_col3" class="data row5 col3">mg/dm³</td>
-<td id="T_975e3_row5_col4" class="data row5 col4">Free form of sulfur dioxide that prevents microbial growth and oxidation.</td>
-<td id="T_975e3_row5_col5" class="data row5 col5">No</td>
+<td id="T_c4e60_row5_col0" class="data row5 col0">free_sulfur_dioxide</td>
+<td id="T_c4e60_row5_col1" class="data row5 col1">Feature</td>
+<td id="T_c4e60_row5_col2" class="data row5 col2">Continuous</td>
+<td id="T_c4e60_row5_col3" class="data row5 col3">mg/dm³</td>
+<td id="T_c4e60_row5_col4" class="data row5 col4">Free form of sulfur dioxide that prevents microbial growth and oxidation.</td>
+<td id="T_c4e60_row5_col5" class="data row5 col5">No</td>
 </tr>
 <tr class="odd">
-<td id="T_975e3_row6_col0" class="data row6 col0">total_sulfur_dioxide</td>
-<td id="T_975e3_row6_col1" class="data row6 col1">Feature</td>
-<td id="T_975e3_row6_col2" class="data row6 col2">Continuous</td>
-<td id="T_975e3_row6_col3" class="data row6 col3">mg/dm³</td>
-<td id="T_975e3_row6_col4" class="data row6 col4">Total amount of sulfur dioxide (free + bound forms).</td>
-<td id="T_975e3_row6_col5" class="data row6 col5">No</td>
+<td id="T_c4e60_row6_col0" class="data row6 col0">total_sulfur_dioxide</td>
+<td id="T_c4e60_row6_col1" class="data row6 col1">Feature</td>
+<td id="T_c4e60_row6_col2" class="data row6 col2">Continuous</td>
+<td id="T_c4e60_row6_col3" class="data row6 col3">mg/dm³</td>
+<td id="T_c4e60_row6_col4" class="data row6 col4">Total amount of sulfur dioxide (free + bound forms).</td>
+<td id="T_c4e60_row6_col5" class="data row6 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row7_col0" class="data row7 col0">density</td>
-<td id="T_975e3_row7_col1" class="data row7 col1">Feature</td>
-<td id="T_975e3_row7_col2" class="data row7 col2">Continuous</td>
-<td id="T_975e3_row7_col3" class="data row7 col3">g/cm³</td>
-<td id="T_975e3_row7_col4" class="data row7 col4">Density of the wine, influenced by alcohol and sugar content.</td>
-<td id="T_975e3_row7_col5" class="data row7 col5">No</td>
+<td id="T_c4e60_row7_col0" class="data row7 col0">density</td>
+<td id="T_c4e60_row7_col1" class="data row7 col1">Feature</td>
+<td id="T_c4e60_row7_col2" class="data row7 col2">Continuous</td>
+<td id="T_c4e60_row7_col3" class="data row7 col3">g/cm³</td>
+<td id="T_c4e60_row7_col4" class="data row7 col4">Density of the wine, influenced by alcohol and sugar content.</td>
+<td id="T_c4e60_row7_col5" class="data row7 col5">No</td>
 </tr>
 <tr class="odd">
-<td id="T_975e3_row8_col0" class="data row8 col0">pH</td>
-<td id="T_975e3_row8_col1" class="data row8 col1">Feature</td>
-<td id="T_975e3_row8_col2" class="data row8 col2">Continuous</td>
-<td id="T_975e3_row8_col3" class="data row8 col3">–</td>
-<td id="T_975e3_row8_col4" class="data row8 col4">Acidity level of the wine; lower values indicate higher acidity.</td>
-<td id="T_975e3_row8_col5" class="data row8 col5">No</td>
+<td id="T_c4e60_row8_col0" class="data row8 col0">pH</td>
+<td id="T_c4e60_row8_col1" class="data row8 col1">Feature</td>
+<td id="T_c4e60_row8_col2" class="data row8 col2">Continuous</td>
+<td id="T_c4e60_row8_col3" class="data row8 col3">–</td>
+<td id="T_c4e60_row8_col4" class="data row8 col4">Acidity level of the wine; lower values indicate higher acidity.</td>
+<td id="T_c4e60_row8_col5" class="data row8 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row9_col0" class="data row9 col0">sulphates</td>
-<td id="T_975e3_row9_col1" class="data row9 col1">Feature</td>
-<td id="T_975e3_row9_col2" class="data row9 col2">Continuous</td>
-<td id="T_975e3_row9_col3" class="data row9 col3">g/dm³</td>
-<td id="T_975e3_row9_col4" class="data row9 col4">Potassium sulphate concentration, contributing to sulfur dioxide levels and preservation.</td>
-<td id="T_975e3_row9_col5" class="data row9 col5">No</td>
+<td id="T_c4e60_row9_col0" class="data row9 col0">sulphates</td>
+<td id="T_c4e60_row9_col1" class="data row9 col1">Feature</td>
+<td id="T_c4e60_row9_col2" class="data row9 col2">Continuous</td>
+<td id="T_c4e60_row9_col3" class="data row9 col3">g/dm³</td>
+<td id="T_c4e60_row9_col4" class="data row9 col4">Potassium sulphate concentration, contributing to sulfur dioxide levels and preservation.</td>
+<td id="T_c4e60_row9_col5" class="data row9 col5">No</td>
 </tr>
 <tr class="odd">
-<td id="T_975e3_row10_col0" class="data row10 col0">alcohol</td>
-<td id="T_975e3_row10_col1" class="data row10 col1">Feature</td>
-<td id="T_975e3_row10_col2" class="data row10 col2">Continuous</td>
-<td id="T_975e3_row10_col3" class="data row10 col3">% (vol)</td>
-<td id="T_975e3_row10_col4" class="data row10 col4">Alcohol content of the wine.</td>
-<td id="T_975e3_row10_col5" class="data row10 col5">No</td>
+<td id="T_c4e60_row10_col0" class="data row10 col0">alcohol</td>
+<td id="T_c4e60_row10_col1" class="data row10 col1">Feature</td>
+<td id="T_c4e60_row10_col2" class="data row10 col2">Continuous</td>
+<td id="T_c4e60_row10_col3" class="data row10 col3">% (vol)</td>
+<td id="T_c4e60_row10_col4" class="data row10 col4">Alcohol content of the wine.</td>
+<td id="T_c4e60_row10_col5" class="data row10 col5">No</td>
 </tr>
 <tr class="even">
-<td id="T_975e3_row11_col0" class="data row11 col0">quality</td>
-<td id="T_975e3_row11_col1" class="data row11 col1">Target</td>
-<td id="T_975e3_row11_col2" class="data row11 col2">Integer</td>
-<td id="T_975e3_row11_col3" class="data row11 col3">Score (0–10)</td>
-<td id="T_975e3_row11_col4" class="data row11 col4">Wine quality score based on expert sensory evaluation.</td>
-<td id="T_975e3_row11_col5" class="data row11 col5">No</td>
+<td id="T_c4e60_row11_col0" class="data row11 col0">quality</td>
+<td id="T_c4e60_row11_col1" class="data row11 col1">Target</td>
+<td id="T_c4e60_row11_col2" class="data row11 col2">Integer</td>
+<td id="T_c4e60_row11_col3" class="data row11 col3">Score (0–10)</td>
+<td id="T_c4e60_row11_col4" class="data row11 col4">Wine quality score based on expert sensory evaluation.</td>
+<td id="T_c4e60_row11_col5" class="data row11 col5">No</td>
 </tr>
 </tbody>
 </table>
@@ -285,15 +297,15 @@ Table&nbsp;1: Description of dataset variables
 <p><br></p>
 </section>
 </section>
-<section id="method" class="level2">
-<h2 class="anchored" data-anchor-id="method">Method</h2>
-<section id="dataset-data-cleaning" class="level3">
-<h3 class="anchored" data-anchor-id="dataset-data-cleaning">Dataset &amp; Data Cleaning</h3>
+<section id="method" class="level1">
+<h1>Method</h1>
+<section id="dataset-data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-data-cleaning">Dataset &amp; Data Cleaning</h2>
 <p>The Wine Quality dataset is retrieved directly from the <strong>UCI Machine Learning Repository</strong> using the <code>ucimlrepo</code> library. The dataset is returned with the features (input variables) and the target variable (wine quality score) stored separately.</p>
 <p>To recreate the original dataset structure, we combine the features and target into a single DataFrame using <code>pd.concat()</code>. This produces a table where each row represents a wine sample and each column represents a physicochemical property or the quality score. However, this results in a DataFrame that contains both red and white wine data. Since we only aim to use white wine data, we clean the data by dropping the first 1599 samples, which correspond to red wine data, leaving only the 4898 white wine samples.</p>
 </section>
-<section id="eda" class="level3">
-<h3 class="anchored" data-anchor-id="eda">EDA</h3>
+<section id="exploratory-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>Since EDA is generally performed after splitting the data, we first split the dataset into training and test sets, and then perform EDA using the training set. The dataset is initially split with a 70/30 ratio, and train set is further split into train and validation sets. Consequently, train set contains 2708 samples, validation set contains 720 samples, and test set contains 1470 samples. <a href="#fig-pie-chart" class="quarto-xref">Figure&nbsp;1</a> also visualizes the proportion of each dataset.</p>
 <p>We examine the basic structure of the dataset by checking its shape, column names, data types, missing values, and statistical summary of each feature using the following functions:</p>
 <ul>
@@ -307,8 +319,8 @@ Table&nbsp;1: Description of dataset variables
 <p>We generate histograms for each feature in the dataset using <code>df.hist()</code>. This allows us to visualize the distribution of values for each variable and observe patterns such as skewness, spread, and potential outliers across the physicochemical properties of the wines.</p>
 <p>Lastly, we compute the correlation matrix using <code>df.corr()</code> to measure the linear relationships between all numerical variables in the dataset. The matrix is then visualized using <code>plt.imshow()</code>, where each cell represents the correlation between two variables.</p>
 </section>
-<section id="prediction" class="level3">
-<h3 class="anchored" data-anchor-id="prediction">Prediction</h3>
+<section id="prediction" class="level2">
+<h2 class="anchored" data-anchor-id="prediction">Prediction</h2>
 <p>To model wine quality, we require a method that can capture complex and potentially non-linear relationships between physicochemical features such as acidity, sugar content, and alcohol level. Preliminary exploration suggests that these variables may interact in ways that are not well represented by simple linear models. Additionally, the dataset contains multiple continuous predictors with possible correlations and varying scales, making model flexibility important. For this reason, we turn to the Random Forest algorithm, an ensemble learning method that builds multiple decision trees and aggregates their predictions. Random Forest is well-suited for this task because it can handle non-linear patterns, is robust to overfitting through averaging, and provides insight into feature importance, allowing us to better understand which factors most strongly influence wine quality.</p>
 <p>Since the random forest classifier is scale-invariant, we do not scale the data before training.</p>
 <p>Grid search is used to explore various combinations of hyperparameters, and the best performing model with 20 <code>max_depth</code> and 100 <code>n_estimators</code> is achieved.</p>
@@ -316,23 +328,23 @@ Table&nbsp;1: Description of dataset variables
 <p><br></p>
 </section>
 </section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<section id="exploratory-data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="exploratory-data-analysis-1" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis-1">Exploratory Data Analysis</h2>
 <div id="fig-pie-chart" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pie-chart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../output/eda/data_split_pie_chart.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pie-chart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Data Split Proportions
+Figure&nbsp;1: Data Split Proportion
 </figcaption>
 </figure>
 </div>
-<section id="inspecting-the-dataset-structure" class="level4">
-<h4 class="anchored" data-anchor-id="inspecting-the-dataset-structure">Inspecting the dataset structure</h4>
-<div id="10e03241" class="cell" data-execution_count="4">
+<section id="dataset-structure-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-structure-inspection">Dataset Structure Inspection</h3>
+<div id="64adb516" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Data types and info:
@@ -356,11 +368,11 @@ dtypes: float64(11)
 memory usage: 232.8 KB</code></pre>
 </div>
 </div>
-<div id="b9731bde" class="cell" data-execution_count="5">
+<div id="a4f46a69" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Missing values per column:</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="189">
 <pre><code>fixed_acidity           0
 volatile_acidity        0
 citric_acid             0
@@ -375,15 +387,18 @@ alcohol                 0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="7ce8372a" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>Summary statistics:</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell" data-execution_count="6">
+<div id="tbl-summary-stat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-stat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Dataset Summary Statistics
+</figcaption>
+<div aria-describedby="tbl-summary-stat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="190">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -519,13 +534,16 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
+</figure>
+</div>
+</div>
 <div id="fig-wine-quality-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-wine-quality-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../output/eda/wine_quality_histogram.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wine-quality-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Distribution of Wine Auality Scores
+Figure&nbsp;2: Distribution of Wine Quality Scores
 </figcaption>
 </figure>
 </div>
@@ -555,30 +573,30 @@ Figure&nbsp;4: Correlation Matrix
 <p><a href="#fig-corr-mat" class="quarto-xref">Figure&nbsp;4</a> shows the strength and direction of linear relationships between the variables. Overall, most physicochemical features have relatively weak correlations with wine quality, suggesting that quality is influenced by multiple factors rather than a single dominant variable. Alcohol content tends to have a positive relationship with quality, while variables such as volatile acidity and density show negative relationships. Many of the input variables also show moderate correlations with each other, indicating that some chemical properties of the wine are related.</p>
 </section>
 </section>
-<section id="prediction-1" class="level3">
-<h3 class="anchored" data-anchor-id="prediction-1">Prediction</h3>
+<section id="prediction-1" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-1">Prediction</h2>
 <div class="cell" data-execution_count="7">
 <div id="tbl-model-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="7">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-model-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Table of best model parameters
+Table&nbsp;3: Best Performing Model Parameters
 </figcaption>
 <div aria-describedby="tbl-model-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="191">
 <style type="text/css">
 </style>
 
-<table id="T_d3dbd" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table id="T_0edc3" class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_d3dbd_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">max_depth</th>
-<th id="T_d3dbd_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">n_estimators</th>
+<th id="T_0edc3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">max_depth</th>
+<th id="T_0edc3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">n_estimators</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_d3dbd_row0_col0" class="data row0 col0">20</td>
-<td id="T_d3dbd_row0_col1" class="data row0 col1">100</td>
+<td id="T_0edc3_row0_col0" class="data row0 col0">20</td>
+<td id="T_0edc3_row0_col1" class="data row0 col1">100</td>
 </tr>
 </tbody>
 </table>
@@ -587,7 +605,7 @@ Table&nbsp;2: Table of best model parameters
 </figure>
 </div>
 </div>
-<p>As shown in <a href="#tbl-model-params" class="quarto-xref">Table&nbsp;2</a>, the best parameters fround from grid search are <code>max_depth = 20</code> and <code>n_estimators = 100</code>.</p>
+<p>As shown in <a href="#tbl-model-params" class="quarto-xref">Table&nbsp;3</a>, the best parameters fround from grid search are <code>max_depth = 20</code> and <code>n_estimators = 100</code>.</p>
 <div id="fig-conf-mat" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conf-mat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -598,9 +616,10 @@ Figure&nbsp;5: Test Data Confusion Matrix
 </figcaption>
 </figure>
 </div>
-<div id="9d987480" class="cell" data-execution_count="8">
+<div id="d6e37b32" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
-<pre><code>              precision    recall  f1-score   support
+<pre><code>Test Data Classification Report:
+              precision    recall  f1-score   support
 
            3       0.00      0.00      0.00         0
            4       0.21      0.69      0.32        13
@@ -645,13 +664,13 @@ weighted avg       0.68      0.65      0.66      1470
 <p><br></p>
 </section>
 </section>
-<section id="discussion" class="level2">
-<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
 <p>The exploratory data analysis suggests that most wines in the dataset fall into average quality categories, with ratings concentrated around the middle of the scale. This indicates that class imbalance in which extremely high or low quality wines are relatively uncommon. The distributions of many physicochemical variables show that most measurements lie within typical ranges, although some variables such as residual sugar and chlorides exhibit wider spreads and occasional extreme values. Several variables also appear right-skewed, meaning most wines have relatively small values with a few larger observations. This pattern suggests that certain chemical properties occur at low levels for most wines but can occasionally be much higher. The correlation analysis further indicates that no single variable strongly determines wine quality. Instead, wine quality appears to be influenced by a combination of multiple chemical characteristics, with some variables showing modest positive or negative relationships with the quality score.</p>
 <p>The random forest classifier with <code>max_depth</code> of 20 and <code>n_estimator</code> of 100 is achieved through grid search. Our model achieves a macro test accuracy of 65%, a precision of 34%, a recall of 50%, and an F1-score of 38%, showing a sign of underperformance in predicting white wine quality. Since our task is more complex than binary classification, this result is expected, as the random forest model is not the most powerful model for this task compared to other approaches such as MLPs. Similar studies have found that machine learning can identify relationships between chemical composition and wine quality, but prediction accuracy often depends on model choice and feature representation <span class="citation" data-cites="rodriguez2015 sagi2018">(<a href="#ref-rodriguez2015" role="doc-biblioref">Rodriguez-Galiano et al. 2015</a>; <a href="#ref-sagi2018" role="doc-biblioref">Sagi and Rokach 2018</a>)</span>. Moreover, the model exhibits a biased performance favoring the dominant classes. This behavior is expected as currently no method is applied to handle class imbalance. Hence, for future work, we suggest to handle class imbalance with up/oversampling or reweighing to improve fairness and perfrmance across all classes.</p>
 <p>Future work could explore methods to address class imbalance, such as oversampling or class weighting, to improve prediction across all quality levels. In addition, testing more advanced models such as gradient boosting or neural networks may help capture more complex relationships between variables. Further research could also examine whether additional information, such as sensory or production data, improves predictive performance.</p>
 </section>
-<section id="references" class="level2 unnumbered">
+<section id="references" class="level1 unnumbered">
 
 
 </section>
