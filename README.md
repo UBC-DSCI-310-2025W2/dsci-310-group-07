@@ -15,6 +15,8 @@ We use `winequality-white.csv` dataset from the [UCI Machine Learning Repository
 ## Dependencies
 We use Python version 3.14.3 as the primary programming language for data analysis and prediction. Moreover, the list of Jupyter and Python packages, along with their versions, is provided in [environment.yml](environment.yml).
 
+For report generation, we use Quarto version 1.8.26 and TinyTex v2026.03.02.
+
 ## Instructions on Running the Data Analysis
 We configure the computational environment used in this project to be reproducible through containerization with Docker. To run the data analysis, please ensure that Docker is installed on your system. If you do not already have Docker installed, you can download it from [here](https://www.docker.com/).
 
