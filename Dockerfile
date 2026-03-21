@@ -1,23 +1,37 @@
-# set base image  
+# set base image
 FROM condaforge/miniforge3:25.9.1-0
 
 # copy lock file
 COPY conda-lock.yml /tmp/conda-lock.yml
 
-# install conda-lock, create environment, and install Quarto manually
-RUN conda install -c conda-forge conda-lock wget -y && \
+# install system dependencies for Quarto and TinyTeX
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    gdebi-core \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# install conda-lock and create environment from lock file
+RUN conda install -c conda-forge conda-lock -y && \
     conda-lock install -n project_env /tmp/conda-lock.yml && \
-    wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.9.36/quarto-1.9.36-linux-arm64.tar.gz -O /tmp/quarto.tar.gz && \
-    mkdir -p /opt/quarto && \
-    tar -xzf /tmp/quarto.tar.gz -C /opt/quarto --strip-components=1 && \
-    ln -s /opt/quarto/bin/quarto /usr/local/bin/quarto && \
-    /opt/quarto/bin/quarto install tinytex --no-prompt && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
 
+# install Quarto using architecture-aware .deb package
+RUN ARCH=$(dpkg --print-architecture) && \
+    curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.26/quarto-1.8.26-linux-${ARCH}.deb && \
+    gdebi --non-interactive quarto-1.8.26-linux-${ARCH}.deb && \
+    rm quarto-1.8.26-linux-${ARCH}.deb
+
+# install TinyTeX for PDF rendering
+RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
+    /root/.TinyTeX/bin/*/tlmgr path add
+
+# pre-install common LaTeX packages used in Quarto PDFs
+RUN /root/.TinyTeX/bin/*/tlmgr install koma-script caption xcolor
 
 SHELL ["/bin/bash", "-l", "-c"]
 
-# set container workding dir
+# set container working directory
 WORKDIR /workplace
 
 # copy project files into container
@@ -28,4 +42,3 @@ EXPOSE 8888
 
 # run jupyter lab inside the environment
 CMD ["conda", "run", "--no-capture-output", "-n", "project_env", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''"]
- 
