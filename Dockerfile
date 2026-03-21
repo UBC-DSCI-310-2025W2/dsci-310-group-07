@@ -1,6 +1,6 @@
 # set base image
 FROM condaforge/miniforge3:25.9.1-0
-
+ 
 # copy lock file
 COPY conda-lock.yml /tmp/conda-lock.yml
 
