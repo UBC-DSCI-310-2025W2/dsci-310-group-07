@@ -11,7 +11,7 @@ RUN conda install -c conda-forge conda-lock wget -y && \
     mkdir -p /opt/quarto && \
     tar -xzf /tmp/quarto.tar.gz -C /opt/quarto --strip-components=1 && \
     ln -s /opt/quarto/bin/quarto /usr/local/bin/quarto && \
-    quarto install tinytex --no-prompt && \
+    /opt/quarto/bin/quarto install tinytex --no-prompt && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
 
 
