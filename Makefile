@@ -1,6 +1,7 @@
+# build HTML and PDF versions of the final report
 all: reports/white_wine_quality_analysis.html reports/white_wine_quality_analysis.pdf
 
-# create folders for the analysis pipeline
+# create data folder to store raw and processed datasets
 data:
 	mkdir -p data
 
@@ -13,6 +14,7 @@ data/processed:
 	mkdir -p data/processed/test_data
 	mkdir -p data/processed/prediction
 
+# create folder for storing analysis and prediction results
 output:
 	mkdir -p output
 
@@ -22,7 +24,7 @@ output/eda:
 output/prediction:
 	mkdir -p output/prediction
 
-# 1: download raw data from UCI repository
+# 1: download raw data from UCI repository 
 data/raw/winequality-white.csv: scripts/download_data.py | data/raw
 	python scripts/download_data.py --uci_id=186 --path_to_save=data/raw/winequality-white.csv
  
@@ -35,7 +37,7 @@ data/processed/test_data/X_test.csv \
 data/processed/test_data/y_test.csv: scripts/preprocess_data.py data/raw/winequality-white.csv | data/processed
 	python scripts/preprocess_data.py --path_to_raw_data=data/raw/winequality-white.csv --path_to_processed=data/processed
 
-# 3: EDA tables and figures
+# 3: generate EDA tables and figures
 output/eda/feature_description.csv \
 output/eda/data_split_pie_chart.png \
 output/eda/wine_quality_histogram.png \
@@ -53,7 +55,7 @@ data/processed/test_data/X_test.csv | output/eda
 		--path_to_feature_dist=output/eda/feature_distributions.png \
 		--path_to_corr_mat=output/eda/correlation_matrix.png
 
-# 4: train model and save outputs
+# 4: train model, find the bst performing model, evaluate model, and save outputs
 output/prediction/best_model_parameters.csv \
 data/processed/prediction/test_prediction.csv: scripts/train_and_evaluate.py \
 data/processed/train_data/X_train.csv \
@@ -80,7 +82,7 @@ data/processed/prediction/test_prediction.csv \
 output/prediction/confusion_matrix.png
 	quarto render reports/white_wine_quality_analysis.qmd --to html
 
-# 6: render the quarto report in pdf (do we need this?)
+# 6: render the quarto report in pdf 
 reports/white_wine_quality_analysis.pdf: reports/white_wine_quality_analysis.qmd \
 output/eda/feature_description.csv \
 output/eda/data_split_pie_chart.png \
@@ -92,7 +94,7 @@ data/processed/prediction/test_prediction.csv \
 output/prediction/confusion_matrix.png
 	quarto render reports/white_wine_quality_analysis.qmd --to pdf
 
-# remove all the files
+# remove all generated data, outputs, and reports to reset the pipeline
 clean:
 	rm -rf data
 	rm -rf output
