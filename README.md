@@ -98,3 +98,6 @@ reports/white_wine_quality_analysis.pdf
 ```
 
 6. After you finish working, stop the container by pressing **Ctrl + C** in the terminal. Because the container was started with the `--rm` flag, it will be automatically removed when it stops.
+
+## Licenses
+The project report is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/). The software and code in the project are licensed under the [MIT License](https://opensource.org/licenses/MIT). Further details regarding the licenses are provided in [LICENSE.md](LICENSE.md).
