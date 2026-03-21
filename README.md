@@ -7,13 +7,15 @@ DSCI 310 GROUP 7:
 - Erhan Asad Javed
 
 ## Project Summary
-This project focuses on multiclass classification of white wine quality based on wine characteristics such as acidity, density, and pH level, using a random forest classifier. This model could help wine producers predict white wine quality based on chemical characteristics, supporting quality control, production decisions, and pricing strategies. Our current model achieves a test accuracy of 64.8%, a precision of 34.5%, a recall of 49.5%, and an F1-score of 37.8%. Further details on the data analysis and prediction are available [here](reports/white_wine_quality_analysis.ipynb).
+This project focuses on multiclass classification of white wine quality based on wine characteristics such as acidity, density, and pH level, using a random forest classifier. This model could help wine producers predict white wine quality based on chemical characteristics, supporting quality control, production decisions, and pricing strategies. Our current model achieves a test accuracy of 64.8%, a precision of 34.5%, a recall of 49.5%, and an F1-score of 37.8%. Further details on the data analysis and prediction are available in the [Jupyter notebook](reports/white_wine_quality_analysis.ipynb) or the [Quarto PDF report](reports/white_wine_quality_analysis.pdf). You can also preview the Quarto document to view the results by following the [instructions](#instructions-on-running-the-data-analysis) provided in the later section.
 
 ## Dataset
 We use `winequality-white.csv` dataset from the [UCI Machine Learning Repository](https://archive-beta.ics.uci.edu/dataset/186/wine+quality) for white wine data analysis and quality prediction. The dataset contains 4898 samples of different white variants of the Portuguese Vinho Verde wine. 
 
 ## Dependencies
 We use Python version 3.14.3 as the primary programming language for data analysis and prediction. Moreover, the list of Jupyter and Python packages, along with their versions, is provided in [environment.yml](environment.yml).
+
+For report generation, we use Quarto version 1.8.26 and TinyTex v2026.03.02.
 
 ## Instructions on Running the Data Analysis
 We configure the computational environment used in this project to be reproducible through containerization with Docker. To run the data analysis, please ensure that Docker is installed on your system. If you do not already have Docker installed, you can download it from [here](https://www.docker.com/).
@@ -30,74 +32,87 @@ git clone https://github.com/UBC-DSCI-310-2025W2/dsci-310-group-07.git
 cd dsci-310-group-07/
 ```
 
-There are two ways to run the analysis:
-
-### Docker Compose
-1. Start the container with Docker Compose:
+3. Start the container with Docker Compose:
 ```bash
-docker-compose up
+docker compose run --rm -p 8888:8888 project
+```
+- If you are using Git Bash on Windows, use the following command instead:
+```bash
+winpty docker compose run --rm -p 8888:8888 project
 ```
 
-2. Once the container has launched, open a web browser and go to:
-```text
-http://localhost:8888/lab
-```
+4. Once the container has launched, you will be placed inside an interactive Bash shell within the container. Please follow the instructions below to run Make, Quarto, and Jupyter.
 
-3. Open a terminal inside Jupyter Lab and run the full analysis pipeline:
+<br>
+
+### Using Make
+This project uses a [Makefile](Makefile) to automate the full data analysis and reporting pipeline.
+
+#### Running the Full Pipeline
+To run the full pipeline for data analysis, model training, prediction, and report generation, use the following command:
+
 ```bash
-conda activate project_env
-make clean
 make all
 ```
 
-4. This will:
-- download the raw dataset from the UCI Machine Learning Repository
-- preprocess and split the data into training, validation, and test sets
-- generate exploratory figures and tables
-- train and evaluate the random forest classifier
-- render the final report in HTML and PDF format
+This will:
+1. Download the raw dataset from the UCI Machine Learning Repository
+2. Preprocess and split the data into training, validation, and test sets
+3. Perform exploratory data analysis (EDA) and generate figures and tables
+4. Train and evaluate the Random Forest classifier
+5. Generate the final Quarto report in both HTML and PDF formats
 
-5. After the pipeline finishes, the main report outputs will be available at:
-```text
-reports/white_wine_quality_analysis.html
-reports/white_wine_quality_analysis.pdf
-```
+#### Resetting the Pipeline
+To reset the project to a clean state, use the following command:
 
-6. After you finish working, stop the container by pressing **Ctrl + C** in the terminal. Then remove the container with:
 ```bash
-docker-compose down
-```
-
-### Build Docker Image Locally
-1. Build the Docker image:
-```bash
-docker build -t white-wine-analysis .
-```
-
-2. Start a container from the image:
-```bash
-docker run --rm -p 8888:8888 white-wine-analysis
-```
-
-3. Once the container has launched, open a web browser and go to:
-```text
-http://localhost:8888/lab
-```
-
-4. Open a terminal inside Jupyter Lab and run:
-```bash
-conda activate project_env
 make clean
-make all
+```
+This removes all generated data, EDA and prediction outputs, and Quarto reports. Note that you must run `make all` again before previewing the Quarto documents as described below.
+
+<br>
+
+### Quarto 
+#### PDF & HTML Reports
+After running `make all`, the Quarto reports (PDF and HTML) can be found in the `reports/` folder.
+
+#### Quarto Preview
+To interactively view the Quarto document:
+
+1. Run the following preview command from the project root:
+```bash
+quarto preview reports/white_wine_quality_analysis.qmd --host 0.0.0.0 --port 8888
 ```
 
-5. This will generate the final analysis outputs, including:
-```text
-reports/white_wine_quality_analysis.html
-reports/white_wine_quality_analysis.pdf
+2. Click the URL displayed in the terminal, or open a web browser and navigate to the following URL:
+```
+http://localhost:8888
 ```
 
-6. After you finish working, stop the container by pressing **Ctrl + C** in the terminal. Because the container was started with the `--rm` flag, it will be automatically removed when it stops.
+3. To stop previewing, press Ctrl + C in the terminal.
+
+<br>
+
+### Running the Jupyter Notebook 
+1. Run the following command to start JupyterLab:
+```bash
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --IdentityProvider.token=''
+```
+2. Click the URL displayed in the terminal (e.g., http://127.0.0.1:8888/lab) or pasting it into a web browser.
+3. Open `reports/white_wine_quality_analysis.ipynb`, then click Kernel > Restart Kernel and Run All Cells to execute the analysis.
+4. To stop JupyterLab, press Ctrl + C in the terminal
+
+<br>
+
+### After Finishing Work
+1. Exit the container by running the following command in the Bash shell inside the container:
+```bash
+exit
+```
+2. Then, run the following command:
+```
+docker compose down
+```
 
 ## Licenses
 The project report is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/). The software and code in the project are licensed under the [MIT License](https://opensource.org/licenses/MIT). Further details regarding the licenses are provided in [LICENSE.md](LICENSE.md).
