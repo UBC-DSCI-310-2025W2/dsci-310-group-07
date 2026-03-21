@@ -41,3 +41,4 @@ COPY . .
 
 # start shell
 CMD ["/bin/bash", "--login", "-i"]
+
