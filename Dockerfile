@@ -6,6 +6,7 @@ COPY conda-lock.yml /tmp/conda-lock.yml
 
 # install system dependencies for Quarto and TinyTeX
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    make \
     curl \
     wget \
     gdebi-core \
@@ -38,8 +39,5 @@ WORKDIR /workplace
 # copy project files into container
 COPY . .
 
-# expose port for jupyter lab
-EXPOSE 8888
-
-# run jupyter lab inside the environment
-CMD ["conda", "run", "--no-capture-output", "-n", "project_env", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''"]
+# start shell
+CMD ["/bin/bash", "--login", "-i"]
