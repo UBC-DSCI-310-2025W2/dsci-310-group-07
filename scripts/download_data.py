@@ -7,11 +7,11 @@ function to donwload data from UCI repository with the given dataset ID and save
 '''
 def download_data(uci_id, path_to_save):
     # fetch dataset
-    wine_quality = fetch_ucirepo(id=uci_id)
+    dataset = fetch_ucirepo(id=uci_id)
 
     # features and target
-    X = wine_quality.data.features
-    y = wine_quality.data.targets
+    X = dataset.data.features
+    y = dataset.data.targets
 
     # concat features and target
     df = pd.concat([X, y], axis=1)
