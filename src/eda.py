@@ -69,6 +69,58 @@ def save_feature_description(path_to_save, table_data=None):
     df = pd.DataFrame(table_data, columns=columns)
     df.to_csv(path_to_save, index=False)
 
+dimport matplotlib.pyplot as plt
+
+
+def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
+    """
+    Save a pie chart showing the proportion of train, validation, and test data.
+
+    Args:
+        X_train, X_valid, X_test: iterable datasets with length
+        path_to_save (str): file path to save the image
+
+    Raises:
+        TypeError: invalid input types
+        ValueError: empty datasets or invalid path
+    """
+    
+    # --- Input validation ---
+    if not isinstance(path_to_save, str):
+        raise TypeError("path_to_save must be a string")
+
+    if path_to_save.strip() == "":
+        raise ValueError("path_to_save cannot be empty")
+
+    for dataset in [X_train, X_valid, X_test]:
+        if not hasattr(dataset, "__len__"):
+            raise TypeError("All datasets must have a length")
+
+    total_size = len(X_train) + len(X_valid) + len(X_test)
+
+    if total_size == 0:
+        raise ValueError("Datasets cannot all be empty")
+
+    # --- Compute correlation ---
+    sizes = [
+        len(X_train) / total_size,
+        len(X_valid) / total_size,
+        len(X_test) / total_size
+    ]
+
+    # --- Plot ---
+    plt.figure(figsize=(7, 7))
+    plt.pie(
+        sizes,
+        labels=["Train Set", "Validation Set", "Test Set"],
+        autopct="%1.0f%%"
+    )
+    plt.title("Data Split Proportion")
+
+    # --- Save ---
+    plt.savefig(path_to_save)
+    plt.close()
+
 
 def save_wine_quality_hist(y_train, path_to_save):
     """
@@ -128,5 +180,57 @@ def save_feature_dist(X_train, path_to_save):
     plt.suptitle("Feature Distributions")
     plt.tight_layout()
 
+    plt.savefig(path_to_save)
+    plt.close()
+
+
+    import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def save_corr_mat(X_train, y_train, path_to_save):
+    """
+    Save a correlation matrix heatmap.
+
+    Args:
+        X_train (pd.DataFrame): feature data
+        y_train (pd.DataFrame or pd.Series): target data
+        path_to_save (str): file path to save image
+
+    Raises:
+        TypeError: invalid input types
+        ValueError: empty data or invalid path
+    """
+
+    # --- Input validation ---
+    if not isinstance(path_to_save, str):
+        raise TypeError("path_to_save must be a string")
+
+    if path_to_save.strip() == "":
+        raise ValueError("path_to_save cannot be empty")
+
+    if not isinstance(X_train, pd.DataFrame):
+        raise TypeError("X_train must be a pandas DataFrame")
+
+    if not isinstance(y_train, (pd.DataFrame, pd.Series)):
+        raise TypeError("y_train must be a pandas DataFrame or Series")
+
+    if X_train.empty or len(y_train) == 0:
+        raise ValueError("Input data cannot be empty")
+
+    # --- Compute correlation ---
+    y_train = pd.DataFrame(y_train)  # ensure consistent format
+    corr = pd.concat([X_train, y_train], axis=1).corr()
+
+    # --- Plot ---
+    plt.figure(figsize=(7, 7))
+    plt.imshow(corr, interpolation="none")
+    plt.colorbar()
+    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
+    plt.yticks(range(len(corr.columns)), corr.columns)
+    plt.title("Correlation Matrix")
+    plt.tight_layout()
+
+    # --- Save ---
     plt.savefig(path_to_save)
     plt.close()
