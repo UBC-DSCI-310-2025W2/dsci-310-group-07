@@ -21,9 +21,9 @@ def drop_red_wine_samples(df: pd.DataFrame) -> pd.DataFrame:
 
     Raises
     ------
-    TypeError
+    TypeError:
         If df is not a pandas DataFrame.
-    ValueError
+    ValueError:
         If df has fewer than 1599 rows.
     """
     if not isinstance(df, pd.DataFrame):
@@ -51,9 +51,9 @@ def split_data(df: pd.DataFrame):
 
     Raises
     ------
-    TypeError
+    TypeError:
         If df is not a pandas DataFrame.
-    ValueError
+    ValueError:
         If 'quality' is not a column in df.
     """
     if not isinstance(df, pd.DataFrame):

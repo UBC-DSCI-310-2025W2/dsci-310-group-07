@@ -69,23 +69,21 @@ def save_feature_description(path_to_save, table_data=None):
     df = pd.DataFrame(table_data, columns=columns)
     df.to_csv(path_to_save, index=False)
 
-dimport matplotlib.pyplot as plt
-
 
 def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
     """
     Save a pie chart showing the proportion of train, validation, and test data.
 
     Args:
-        X_train, X_valid, X_test: iterable datasets with length
-        path_to_save (str): file path to save the image
+        X_train, X_valid, X_test: Iterable datasets with length
+        path_to_save (str): File path to save the image
 
     Returns:
         None
 
     Raises:
-        TypeError: invalid input types
-        ValueError: empty datasets or invalid path
+        TypeError: Invalid input types
+        ValueError: If empty path to save figure or empty dataset
     """
 
     # --- Input validation ---
@@ -135,6 +133,10 @@ def save_wine_quality_hist(y_train, path_to_save):
 
     Returns:
         None
+        
+    Raises:
+        TypeError: If path to save is not a string or y_train is not a Datafrane or Series
+        ValueError: If path to save histogram is empty
     """
 
     if not isinstance(path_to_save, str):
@@ -167,6 +169,10 @@ def save_feature_dist(X_train, path_to_save):
 
     Returns:
         None
+        
+    Raises:
+        TypeError: If X_train is not a Dataframe or path to save is not a string
+        ValueError: If path to save is an empty path
     """
 
     if not isinstance(path_to_save, str):
@@ -192,16 +198,16 @@ def save_corr_mat(X_train, y_train, path_to_save):
     Save a correlation matrix heatmap.
 
     Args:
-        X_train (pd.DataFrame): feature data
-        y_train (pd.DataFrame or pd.Series): target data
-        path_to_save (str): file path to save image
+        X_train (pd.DataFrame): Feature data
+        y_train (pd.DataFrame or pd.Series): Target data
+        path_to_save (str): File path to save image
 
     Returns:
         None
 
     Raises:
-        TypeError: invalid input types
-        ValueError: empty data or invalid path
+        TypeError: If X_train is not a Dataframe or y_train is empty
+        ValueError: Empty data or invalid path
     """
 
     # --- Input validation ---
