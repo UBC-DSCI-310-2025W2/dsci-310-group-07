@@ -3,8 +3,10 @@ import os
 import pandas as pd
 from src.eda import (
     save_feature_description,
+    save_data_split_pie_chart,
     save_wine_quality_hist,
-    save_feature_dist
+    save_feature_dist,
+    save_corr_mat
 )
 
 
@@ -44,6 +46,40 @@ def test_empty_path_raises_value_error():
 def test_invalid_table_data_type_raises_type_error():
     with pytest.raises(TypeError):
         save_feature_description("file.csv", table_data="not a list")
+
+
+# --- Pie chart tests ---
+
+def test_pie_chart_valid(tmp_path):
+    file_path = tmp_path / "pie.png"
+
+    X_train = [1, 2, 3]
+    X_valid = [4, 5]
+    X_test = [6]
+
+    save_data_split_pie_chart(X_train, X_valid, X_test, str(file_path))
+
+    assert os.path.exists(file_path)
+
+
+def test_pie_chart_invalid_type():
+    with pytest.raises(TypeError):
+        save_data_split_pie_chart(123, [1], [1], "test.png")
+
+
+def test_pie_chart_empty_data():
+    with pytest.raises(ValueError):
+        save_data_split_pie_chart([], [], [], "test.png")
+
+
+def test_pie_chart_invalid_path():
+    with pytest.raises(TypeError):
+        save_data_split_pie_chart([1], [1], [1], 123)
+
+
+def test_pie_chart_empty_path():
+    with pytest.raises(ValueError):
+        save_data_split_pie_chart([1], [1], [1], "")
 
 
 # --- save_wine_quality_hist tests ---
@@ -131,3 +167,44 @@ def test_invalid_X_train_type_raises_type_error():
 
     with pytest.raises(TypeError):
         save_feature_dist("not a dataframe", "file.png")
+
+
+# --- Correlation matrix tests ---
+
+def test_corr_mat_valid(tmp_path):
+    file_path = tmp_path / "corr.png"
+
+    X = pd.DataFrame({
+        "A": [1, 2, 3],
+        "B": [4, 5, 6]
+    })
+    y = pd.Series([7, 8, 9])
+
+    save_corr_mat(X, y, str(file_path))
+
+    assert os.path.exists(file_path)
+
+
+def test_corr_mat_invalid_X_type():
+    with pytest.raises(TypeError):
+        save_corr_mat([1, 2, 3], pd.Series([1, 2, 3]), "test.png")
+
+
+def test_corr_mat_invalid_y_type():
+    with pytest.raises(TypeError):
+        save_corr_mat(pd.DataFrame({"A": [1]}), [1], "test.png")
+
+
+def test_corr_mat_empty_data():
+    with pytest.raises(ValueError):
+        save_corr_mat(pd.DataFrame(), pd.Series(), "test.png")
+
+
+def test_corr_mat_invalid_path():
+    with pytest.raises(TypeError):
+        save_corr_mat(pd.DataFrame({"A": [1]}), pd.Series([1]), 123)
+
+
+def test_corr_mat_empty_path():
+    with pytest.raises(ValueError):
+        save_corr_mat(pd.DataFrame({"A": [1]}), pd.Series([1]), "")
