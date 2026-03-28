@@ -80,11 +80,14 @@ def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
         X_train, X_valid, X_test: iterable datasets with length
         path_to_save (str): file path to save the image
 
+    Returns:
+        None
+
     Raises:
         TypeError: invalid input types
         ValueError: empty datasets or invalid path
     """
-    
+
     # --- Input validation ---
     if not isinstance(path_to_save, str):
         raise TypeError("path_to_save must be a string")
@@ -184,10 +187,6 @@ def save_feature_dist(X_train, path_to_save):
     plt.close()
 
 
-    import pandas as pd
-import matplotlib.pyplot as plt
-
-
 def save_corr_mat(X_train, y_train, path_to_save):
     """
     Save a correlation matrix heatmap.
@@ -196,6 +195,9 @@ def save_corr_mat(X_train, y_train, path_to_save):
         X_train (pd.DataFrame): feature data
         y_train (pd.DataFrame or pd.Series): target data
         path_to_save (str): file path to save image
+
+    Returns:
+        None
 
     Raises:
         TypeError: invalid input types
