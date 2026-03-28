@@ -1,60 +1,14 @@
 from src.eda import (
     save_feature_description,
+    save_data_split_pie_chart,
     save_wine_quality_hist,
-    save_feature_dist
+    save_feature_dist,
+    save_corr_mat
 )
 
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
-
-
-'''
-function to save pie chart that presents data split ratio of train, validation, and test data
-'''
-def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
-    # compute size for each dataset
-    data_size = len(X_train) + len(X_valid) + len(X_test)
-    train_set_size = len(X_train) / data_size
-    valid_set_size = len(X_valid) / data_size
-    test_set_size = len(X_test) / data_size
-
-    # define pie chart
-    plt.figure(figsize=(7, 7))
-    pie_colors = ['seagreen', 'gold', 'tomato']
-    plt.pie(
-        [train_set_size, valid_set_size, test_set_size],
-        labels=['Train Set', 'Validation Set', 'Test Set'],
-        colors=pie_colors,
-        autopct='%1.0f%%'
-    )
-    plt.title('Data Split Proportion')
-
-    # save plot
-    plt.savefig(path_to_save)
-
-    print(f'Data split pie chart saved in {path_to_save}')
-
-
-'''
-function to save correlation matrix
-'''
-def save_corr_mat(X_train, y_train, path_to_save):
-    # define corr mat
-    corr = pd.concat([X_train, y_train], axis=1).corr()
-
-    plt.figure(figsize=(7, 7))
-    plt.imshow(corr, cmap="coolwarm", interpolation="none")
-    plt.colorbar()
-    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
-    plt.yticks(range(len(corr.columns)), corr.columns)
-    plt.title("Correlation Matrix")
-    plt.tight_layout()
-
-    # save plot
-    plt.savefig(path_to_save)
-
-    print(f'Correlation Matrix saved in {path_to_save}')
 
 
 if __name__ == "__main__":

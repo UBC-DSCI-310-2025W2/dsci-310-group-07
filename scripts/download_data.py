@@ -2,24 +2,8 @@ import argparse
 import pandas as pd
 from ucimlrepo import fetch_ucirepo 
 
-'''
-function to donwload data from UCI repository with the given dataset ID and save it in the specified path
-'''
-def download_data(uci_id, path_to_save):
-    # fetch dataset
-    dataset = fetch_ucirepo(id=uci_id)
+from src.download_utils import download_data
 
-    # features and target
-    X = dataset.data.features
-    y = dataset.data.targets
-
-    # concat features and target
-    df = pd.concat([X, y], axis=1)
-    
-    # save df to the given path
-    df.to_csv(path_to_save, index=False)
-    
-    print(f'File loaded from UCI repo with {uci_id} ID | File saved in {path_to_save}')
     
 if __name__ == "__main__":
     # define parser and add args
