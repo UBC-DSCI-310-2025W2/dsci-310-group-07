@@ -1,4 +1,4 @@
-Feature Name ,Role,Type,Units,Description,Missing Values
+Feature Name,Role,Type,Units,Description,Missing Values
 fixed_acidity,Feature,Continuous,g/dm³,Fixed acids (primarily tartaric acid) that do not evaporate easily.,No
 volatile_acidity,Feature,Continuous,g/dm³,Amount of acetic acid in wine; high levels can lead to an unpleasant vinegar taste.,No
 citric_acid,Feature,Continuous,g/dm³,"Citric acid content, which can add freshness and flavor to wine.",No
