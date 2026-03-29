@@ -1,10 +1,7 @@
 import argparse
-import pandas as pd
-from ucimlrepo import fetch_ucirepo 
 
 from src.download_utils import download_data
 
-    
 if __name__ == "__main__":
     # define parser and add args
     parser = argparse.ArgumentParser(description='Download data from UCI repo and save it in a local folder')

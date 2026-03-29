@@ -1,15 +1,13 @@
-from src.eda import (
+import argparse
+import pandas as pd
+
+from src.eda_utils import (
     save_feature_description,
     save_data_split_pie_chart,
     save_wine_quality_hist,
     save_feature_dist,
     save_corr_mat
 )
-
-import argparse
-import pandas as pd
-import matplotlib.pyplot as plt
-
 
 if __name__ == "__main__":
     # define parser and add args
