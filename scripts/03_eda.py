@@ -1,5 +1,9 @@
+import os
+import sys
 import argparse
 import pandas as pd
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from src.eda_utils import (
     save_feature_description,
