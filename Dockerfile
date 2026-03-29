@@ -39,6 +39,3 @@ WORKDIR /workplace
 # copy project files into container
 COPY . .
 
-# start shell
-CMD ["/bin/bash", "--login", "-i"]
-

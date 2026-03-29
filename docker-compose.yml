@@ -7,4 +7,3 @@ services:
       - .:/workplace
     stdin_open: true
     tty: true
-    command: /bin/bash --login -i
