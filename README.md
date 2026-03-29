@@ -32,16 +32,59 @@ git clone https://github.com/UBC-DSCI-310-2025W2/dsci-310-group-07.git
 cd dsci-310-group-07/
 ```
 
-3. Start the container with Docker Compose:
+3. Pull the latest image from Docker Hub: 
 ```bash
-docker compose run --rm -p 8888:8888 project
+docker pull justkwoo/dsci310-group-07:latest
+```
+
+4. Start the container with Docker Compose:
+```bash
+docker compose run --rm -it --service-ports project bash
 ```
 - If you are using Git Bash on Windows, use the following command instead:
 ```bash
-winpty docker compose run --rm -p 8888:8888 project
+winpty docker compose run --rm -it --service-ports project bash
 ```
 
-4. Once the container has launched, you will be placed inside an interactive Bash shell within the container. Please follow the instructions below to run Make, Quarto, and Jupyter.
+5. Once the container has launched, you will be placed inside an interactive Bash shell within the container. Please follow the instructions below to run pytest, GNU Make, Quarto, and Jupyter.
+
+<br>
+
+### Running Pytest
+
+This project uses `pytest` to test the reusable utility functions in the `src/` directory. The test files are located in the `tests/` directory.
+
+Before running tests, make sure you have already:
+
+1. cloned the repository,
+2. navigated to the project root directory, and
+3. started the Docker container as described above.
+
+Once you are inside the container, you can run the tests from the project root.
+
+#### Run All Tests
+To run the full test suite, use:
+
+```bash
+pytest
+```
+
+This will automatically discover and run all test files in the ```tests/``` directory.
+
+#### Run One Specific Test File
+To run only one test file, use:
+
+```bash
+pytest tests/test_preprocess_utils.py
+```
+
+You can similarly run any of the other test files:
+
+```bash
+pytest tests/test_download_utils.py
+pytest tests/test_eda_utils.py
+pytest tests/test_train_and_evaluate_utils.py
+```
 
 <br>
 
