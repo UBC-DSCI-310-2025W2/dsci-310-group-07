@@ -1,11 +1,11 @@
 import os
 import sys
+import pytest
+import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import pytest
-import pandas as pd
-from src.eda import (
+from src.eda_utils import (
     save_feature_description,
     save_data_split_pie_chart,
     save_wine_quality_hist,
@@ -89,9 +89,6 @@ def test_pie_chart_empty_path():
 # --- save_wine_quality_hist tests ---
 
 def test_valid_input_creates_histogram_file(tmp_path):
-    import pandas as pd
-    from src.eda import save_wine_quality_hist
-
     file_path = tmp_path / "hist.png"
 
     y = pd.DataFrame([3, 4, 5, 5, 6])
@@ -102,9 +99,6 @@ def test_valid_input_creates_histogram_file(tmp_path):
 
 
 def test_non_string_path_raises_type_error_hist():
-    import pandas as pd
-    from src.eda import save_wine_quality_hist
-
     y = pd.DataFrame([3, 4, 5])
 
     with pytest.raises(TypeError):
@@ -112,9 +106,6 @@ def test_non_string_path_raises_type_error_hist():
 
 
 def test_empty_path_raises_value_error_hist():
-    import pandas as pd
-    from src.eda import save_wine_quality_hist
-
     y = pd.DataFrame([3, 4, 5])
 
     with pytest.raises(ValueError):
@@ -122,8 +113,6 @@ def test_empty_path_raises_value_error_hist():
 
 
 def test_invalid_y_train_type_raises_type_error():
-    from src.eda import save_wine_quality_hist
-
     with pytest.raises(TypeError):
         save_wine_quality_hist("not a dataframe", "file.png")
 
@@ -131,9 +120,6 @@ def test_invalid_y_train_type_raises_type_error():
 # --- save_feature_dist tests ---
 
 def test_valid_input_creates_feature_distribution_file(tmp_path):
-    import pandas as pd
-    from src.eda import save_feature_dist
-
     file_path = tmp_path / "dist.png"
 
     X = pd.DataFrame({
@@ -147,9 +133,6 @@ def test_valid_input_creates_feature_distribution_file(tmp_path):
 
 
 def test_non_string_path_raises_type_error_dist():
-    import pandas as pd
-    from src.eda import save_feature_dist
-
     X = pd.DataFrame({"A": [1, 2, 3]})
 
     with pytest.raises(TypeError):
@@ -157,9 +140,6 @@ def test_non_string_path_raises_type_error_dist():
 
 
 def test_empty_path_raises_value_error_dist():
-    import pandas as pd
-    from src.eda import save_feature_dist
-
     X = pd.DataFrame({"A": [1, 2, 3]})
 
     with pytest.raises(ValueError):
@@ -167,8 +147,6 @@ def test_empty_path_raises_value_error_dist():
 
 
 def test_invalid_X_train_type_raises_type_error():
-    from src.eda import save_feature_dist
-
     with pytest.raises(TypeError):
         save_feature_dist("not a dataframe", "file.png")
 
