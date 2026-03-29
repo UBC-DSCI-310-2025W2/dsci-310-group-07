@@ -1,8 +1,12 @@
+import os
+import sys
 import argparse
 import pandas as pd
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from src.train_and_eval_utils import (
     save_best_params, 

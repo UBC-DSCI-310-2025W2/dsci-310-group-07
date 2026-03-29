@@ -1,5 +1,9 @@
+import os
+import sys
 import argparse
 import pandas as pd
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from src.preprocess_utils import drop_red_wine_samples, split_data
 
