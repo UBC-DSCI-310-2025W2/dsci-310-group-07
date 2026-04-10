@@ -2,6 +2,7 @@ import os
 import sys
 import pandas as pd
 import pytest
+from unittest.mock import patch, MagicMock
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -9,16 +10,23 @@ from src.download_utils import download_data
 
 
 # -------------------
-# Valid case
+# Valid case (Mocked)
 # -------------------
-def test_download_data_valid(tmp_path):
-    file_path = tmp_path / "test.csv"
+@patch('src.download_utils.fetch_ucirepo')
+def test_download_data_valid(mock_fetch, tmp_path):
+    # Create a fake dataset object to return
+    mock_dataset = MagicMock()
+    mock_dataset.data.features = pd.DataFrame({'feature1': [1, 2], 'feature2': [3, 4]})
+    mock_dataset.data.targets = pd.DataFrame({'target': [0, 1]})
+    mock_fetch.return_value = mock_dataset
 
-    df = download_data(45, str(file_path))  # 45 = valid UCI dataset
+    file_path = tmp_path / "test.csv"
+    df = download_data(45, str(file_path))
 
     assert isinstance(df, pd.DataFrame)
-    assert df.shape[0] > 0
+    assert df.shape == (2, 3)  # 2 rows, 3 columns (2 features + 1 target)
     assert os.path.exists(file_path)
+    assert mock_fetch.called
 
 
 # -------------------
@@ -50,10 +58,16 @@ def test_download_data_zero_uci_id():
 # -------------------
 # File saving check
 # -------------------
-def test_download_data_file_content(tmp_path):
+@patch('src.download_utils.fetch_ucirepo')
+def test_download_data_file_content(mock_fetch, tmp_path):
+    mock_dataset = MagicMock()
+    mock_dataset.data.features = pd.DataFrame({'a': [10]})
+    mock_dataset.data.targets = pd.DataFrame({'b': [20]})
+    mock_fetch.return_value = mock_dataset
+
     file_path = tmp_path / "test.csv"
-
-    df = download_data(45, str(file_path))
+    download_data(45, str(file_path))
+    
     loaded_df = pd.read_csv(file_path)
-
-    assert df.shape == loaded_df.shape
+    assert loaded_df.iloc[0]['a'] == 10
+    assert loaded_df.iloc[0]['b'] == 20
