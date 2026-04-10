@@ -50,6 +50,11 @@ winpty docker compose run --rm -it --service-ports project bash
 
 <br>
 
+### Project Structure
+
+- `src/` contains the reusable Python utility functions used throughout the pipeline, including functions for downloading data, preprocessing, exploratory data analysis, and model training/evaluation.
+- `tests/` contains the corresponding `pytest` test files that verify the correctness of the reusable functions in `src/`.
+
 ### Running Pytest
 
 This project uses `pytest` to test the reusable utility functions in the `src/` directory. The test files are located in the `tests/` directory.
@@ -92,6 +97,13 @@ pytest tests/test_train_and_evaluate_utils.py
 This project uses a [Makefile](Makefile) to automate the full data analysis and reporting pipeline.
 
 #### Running the Full Pipeline
+
+Because generated files are already included in the cloned repository, begin by running make clean to remove existing outputs and ensure the pipeline is rebuilt from a clean state.
+
+```bash
+make clean
+```
+
 To run the full pipeline for data analysis, model training, prediction, and report generation, use the following command:
 
 ```bash
