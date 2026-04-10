@@ -64,36 +64,37 @@ def create_y_test_single_class():
 # ---------------------------
 # Tests for save_best_params
 # ---------------------------
-def test_save_best_params_create_file(create_grid_search):
+def test_save_best_params_create_file(create_grid_search, tmp_path):
     """
     Valid case 1: check that the CSV file is created.
+    tmp_path automatically creates a folder that deletes itself after the test 
     """
-    path = "tests/best_model_parameters.csv"
-    save_best_params(create_grid_search, path)
-    
+    path = tmp_path/ "best_model_parameters.csv"
+    save_best_params(create_grid_search, str(path))
+
     assert os.path.exists(path)
 
-def test_save_best_params_correct_values(create_grid_search):
+def test_save_best_params_correct_values(create_grid_search, tmp_path):
     """
     Valid case 2: check that saved parameter values match best parameter defined in fixture.
     """
-    path = "tests/best_model_parameters.csv"
-    save_best_params(create_grid_search, path)
+    path = tmp_path/ "best_model_parameters.csv"
+    save_best_params(create_grid_search, str(path))
     df = pd.read_csv(path)
     
     assert df["max_depth"][0] == 20
     assert df["n_estimators"][0] == 100
     
-def test_save_best_params_overwrite_existing_csv_file(create_grid_search):
+def test_save_best_params_overwrite_existing_csv_file(create_grid_search, tmp_path):
     """
     Edge case: check that the function can overwrite the existing csv file in the specified path
     """
-    path = "tests/best_model_parameters.csv"
-    
+    path = tmp_path/ "best_model_parameters.csv"
+
     with open(path, "w") as f:
         f.write("this must be overwritten")
         
-    save_best_params(create_grid_search, path)
+    save_best_params(create_grid_search, str(path))
     df = pd.read_csv(path)
     
     assert "this must be overwritten" not in df.to_string()
@@ -124,47 +125,49 @@ def test_save_best_params_empty_string(create_grid_search):
 # ---------------------------
 # Tests for save_test_pred
 # ---------------------------
-def test_save_test_pred_create_file(create_test_pred):
+def test_save_test_pred_create_file(create_test_pred, tmp_path):
     """
     Valid case 1: check that the CSV file is created.
     """
-    path = "tests/test_predictions.csv"
-    save_test_pred(create_test_pred, path)
+    path = tmp_path/ "test_predictions.csv"
+
+# Pass the path as a string to the function    
+    save_test_pred(create_test_pred, str(path))
     
     assert os.path.exists(path)
 
-def test_save_test_pred_correct_values(create_test_pred):
+def test_save_test_pred_correct_values(create_test_pred, tmp_path):
     """
     Valid case 2: check that test predictions match with the values defined in fixture.
     """
-    path = "tests/test_predictions.csv"
-    save_test_pred(create_test_pred, path)
+    path = tmp_path/ "test_predictions.csv"
+    save_test_pred(create_test_pred, str(path))
     df = pd.read_csv(path)
     
     assert df["predicted_quality"].iloc[0] == 5
     assert df["predicted_quality"].iloc[1] == 7
     
-def test_save_test_pred_overwrite_existing_csv_file(create_test_pred):
+def test_save_test_pred_overwrite_existing_csv_file(create_test_pred, tmp_path):
     """
     Edge case: check that the function can overwrite the existing csv file in the specified path
     """
-    path = "tests/test_predictions.csv"
+    path = tmp_path/ "test_predictions.csv"
     
     with open(path, "w") as f:
         f.write("this must be overwritten")
         
-    save_test_pred(create_test_pred, path)
+    save_test_pred(create_test_pred, str(path))
     df = pd.read_csv(path)
     
     assert "this must be overwritten" not in df.to_string()
 
-def test_save_test_pred_invalid_test_pred_type():
+def test_save_test_pred_invalid_test_pred_type(tmp_path):
     """
     Invalid case 1: check if the function throws TypeError when test_pred is not numpy ndarray
     """
     with pytest.raises(TypeError):
-        path = "tests/test_predictions.csv"
-        save_best_params(812837.12312, path)
+        path = tmp_path/ "test_predictions.csv"
+        save_best_params(812837.12312, str(path))
     
 def test_save_test_pred_invalid_path_type(create_test_pred):
     """
@@ -184,55 +187,58 @@ def test_save_test_pred_empty_string(create_test_pred):
 # ---------------------------
 # Tests for save_test_pred
 # ---------------------------
-def test_save_conf_mat_create_file(create_y_test, create_test_pred):
+def test_save_conf_mat_create_file(create_y_test, create_test_pred, tmp_path):
     """
     Valid case 1: check that the confusion matrix is created
     """
-    path = "tests/confusion_matrix.png"
-    save_conf_mat(create_y_test, create_test_pred, path)
+# Create a path inside the temporary directory
+    path = tmp_path/ "confusion_matrix.png"
+
+# Pass the path as a string to the function
+    save_conf_mat(create_y_test, create_test_pred, str(path))
     
     assert os.path.exists(path)
     
-def test_save_conf_mat_correct_image(create_y_test, create_test_pred):
+def test_save_conf_mat_correct_image(create_y_test, create_test_pred, tmp_path):
     """
     Valid case 2: check that the confusion matrix png file is a valid image  
     """
-    path = "tests/confusion_matrix.png"
-    save_conf_mat(create_y_test, create_test_pred, path)
+    path = tmp_path/ "confusion_matrix.png"
+    save_conf_mat(create_y_test, create_test_pred, str(path))
     
     conf_mat_img = Image.open(path)
     
     assert conf_mat_img.size[0] > 0 and conf_mat_img.size[1] > 0
 
-def test_save_conf_mat_single_class(create_y_test_single_class, create_test_pred_single_class):
+def test_save_conf_mat_single_class(create_y_test_single_class, create_test_pred_single_class, tmp_path):
     """
     Edge case: check that the confusion matrix is created and is a valid image
     even when both y_test and test_pred only contain a single class
     """
-    path = "tests/confusion_matrix.png"
-    save_conf_mat(create_y_test_single_class, create_test_pred_single_class, path)
+    path = tmp_path/ "confusion_matrix.png"
+    save_conf_mat(create_y_test_single_class, create_test_pred_single_class, str(path))
     conf_mat_img = Image.open(path)
     
     assert os.path.exists(path)
     assert conf_mat_img.size[0] > 0 and conf_mat_img.size[1] > 0
     
-def test_save_conf_mat_invalid_y_test(create_test_pred):
+def test_save_conf_mat_invalid_y_test(create_test_pred, tmp_path):
     """
     Invalid case 1: check if the function throws TypeError when y_test is not pd.DataFrame
     """
-    path = "tests/confusion_matrix.png"
+    path = tmp_path/ "confusion_matrix.png"
     
     with pytest.raises(TypeError):
-        save_conf_mat([1,2], create_test_pred, path)
+        save_conf_mat([1,2], create_test_pred, str(path))
         
-def test_save_conf_mat_invalid_test_pred(create_y_test):
+def test_save_conf_mat_invalid_test_pred(create_y_test, tmp_path):
     """
     Invalid case 2: check if the function throws TypeError when test_pred is not np.ndarray
     """
-    path = "tests/confusion_matrix.png"
+    path = tmp_path/ "confusion_matrix.png"
     
     with pytest.raises(TypeError):
-        save_conf_mat(create_y_test, [4,5], path)
+        save_conf_mat(create_y_test, [4,5], str(path))
 
 def test_save_conf_mat_invalid_path_type(create_y_test):
     """
@@ -248,13 +254,13 @@ def test_save_conf_mat_empty_path(create_y_test, create_test_pred):
     with pytest.raises(ValueError):
         save_conf_mat(create_y_test, create_test_pred, "")
         
-def test_save_conf_mat_mismatching_input_shape(create_y_test):
+def test_save_conf_mat_mismatching_input_shape(create_y_test, tmp_path):
     """
     Invalid case 5: check if the function throws ValueError when y_test and test_pred 
     have different length
     """
-    path = "tests/confusion_matrix.png"
+    path = tmp_path/ "confusion_matrix.png"
     
     with pytest.raises(ValueError):
-        save_conf_mat(create_y_test, np.array([1]), path)
+        save_conf_mat(create_y_test, np.array([1]), str(path))
     
