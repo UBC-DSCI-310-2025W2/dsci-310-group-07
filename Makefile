@@ -25,8 +25,8 @@ output/prediction:
 	mkdir -p output/prediction
 
 # 1: download raw data from UCI repository 
-data/raw/winequality-white.csv: scripts/download_data.py | data/raw
-	python scripts/download_data.py --uci_id=186 --path_to_save=data/raw/winequality-white.csv
+data/raw/winequality-white.csv: scripts/01_download_data.py | data/raw
+	python scripts/01_download_data.py --uci_id=186 --path_to_save=data/raw/winequality-white.csv
  
 # 2: preprocess and split data into train/validation/test sets
 data/processed/train_data/X_train.csv \
@@ -34,20 +34,20 @@ data/processed/train_data/y_train.csv \
 data/processed/valid_data/X_valid.csv \
 data/processed/valid_data/y_valid.csv \
 data/processed/test_data/X_test.csv \
-data/processed/test_data/y_test.csv: scripts/preprocess_data.py data/raw/winequality-white.csv | data/processed
-	python scripts/preprocess_data.py --path_to_raw_data=data/raw/winequality-white.csv --path_to_processed=data/processed
+data/processed/test_data/y_test.csv: scripts/02_preprocess_data.py data/raw/winequality-white.csv | data/processed
+	python scripts/02_preprocess_data.py --path_to_raw_data=data/raw/winequality-white.csv --path_to_processed=data/processed
 
 # 3: generate EDA tables and figures
 output/eda/feature_description.csv \
 output/eda/data_split_pie_chart.png \
 output/eda/wine_quality_histogram.png \
 output/eda/feature_distributions.png \
-output/eda/correlation_matrix.png: scripts/eda.py \
+output/eda/correlation_matrix.png: scripts/03_eda.py \
 data/processed/train_data/X_train.csv \
 data/processed/train_data/y_train.csv \
 data/processed/valid_data/X_valid.csv \
 data/processed/test_data/X_test.csv | output/eda
-	python scripts/eda.py \
+	python scripts/03_eda.py \
 		--path_to_processed=data/processed \
 		--path_to_feature_description=output/eda/feature_description.csv \
 		--path_to_pie_chart=output/eda/data_split_pie_chart.png \
@@ -57,14 +57,14 @@ data/processed/test_data/X_test.csv | output/eda
 
 # 4: train model, find the bst performing model, evaluate model, and save outputs
 output/prediction/best_model_parameters.csv \
-data/processed/prediction/test_prediction.csv: scripts/train_and_evaluate.py \
+data/processed/prediction/test_prediction.csv: scripts/04_train_and_evaluate.py \
 data/processed/train_data/X_train.csv \
 data/processed/train_data/y_train.csv \
 data/processed/valid_data/X_valid.csv \
 data/processed/valid_data/y_valid.csv \
 data/processed/test_data/X_test.csv \
 data/processed/test_data/y_test.csv | output/prediction
-	python scripts/train_and_evaluate.py \
+	python scripts/04_train_and_evaluate.py \
 		--path_to_processed=data/processed \
 		--path_to_prediction_data=data/processed/prediction/test_prediction.csv \
 		--path_to_model_params=output/prediction/best_model_parameters.csv \
