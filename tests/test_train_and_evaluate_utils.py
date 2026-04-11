@@ -131,7 +131,6 @@ def test_save_test_pred_create_file(create_test_pred, tmp_path):
     """
     path = tmp_path/ "test_predictions.csv"
 
-# Pass the path as a string to the function    
     save_test_pred(create_test_pred, str(path))
     
     assert os.path.exists(path)
@@ -191,10 +190,8 @@ def test_save_conf_mat_create_file(create_y_test, create_test_pred, tmp_path):
     """
     Valid case 1: check that the confusion matrix is created
     """
-# Create a path inside the temporary directory
     path = tmp_path/ "confusion_matrix.png"
 
-# Pass the path as a string to the function
     save_conf_mat(create_y_test, create_test_pred, str(path))
     
     assert os.path.exists(path)

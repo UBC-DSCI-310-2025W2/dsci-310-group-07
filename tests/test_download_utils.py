@@ -14,7 +14,10 @@ from src.download_utils import download_data
 # -------------------
 @patch('src.download_utils.fetch_ucirepo')
 def test_download_data_valid(mock_fetch, tmp_path):
-    # Create a fake dataset object to return
+    """
+    Verifies that download_data correctly processes a valid UCI ID, 
+    combines features and targets into a single DataFrame, and saves it to a CSV.
+    """
     mock_dataset = MagicMock()
     mock_dataset.data.features = pd.DataFrame({'feature1': [1, 2], 'feature2': [3, 4]})
     mock_dataset.data.targets = pd.DataFrame({'target': [0, 1]})
@@ -33,11 +36,17 @@ def test_download_data_valid(mock_fetch, tmp_path):
 # Type errors
 # -------------------
 def test_download_data_invalid_uci_id_type():
+    """
+    Ensures a TypeError is raised when the uci_id argument is not an integer.
+    """
     with pytest.raises(TypeError):
         download_data("45", "test.csv")  # string instead of int
 
 
 def test_download_data_invalid_path_type():
+    """
+    Ensures a TypeError is raised when the file_path argument is not a string.
+    """
     with pytest.raises(TypeError):
         download_data(45, 123)  # path should be string
 
@@ -46,11 +55,17 @@ def test_download_data_invalid_path_type():
 # Value errors
 # -------------------
 def test_download_data_invalid_uci_id_value():
+    """
+    Ensures a ValueError is raised when a negative uci_id is provided.
+    """
     with pytest.raises(ValueError):
         download_data(-1, "test.csv")  # negative id
 
 
 def test_download_data_zero_uci_id():
+    """
+    Ensures a ValueError is raised when a uci_id of 0 is provided.
+    """
     with pytest.raises(ValueError):
         download_data(0, "test.csv")  # zero is invalid
 
@@ -60,6 +75,9 @@ def test_download_data_zero_uci_id():
 # -------------------
 @patch('src.download_utils.fetch_ucirepo')
 def test_download_data_file_content(mock_fetch, tmp_path):
+    """
+    Validates that the content written to the CSV file accurately matches the data retrieved from the UCI repository.
+    """
     mock_dataset = MagicMock()
     mock_dataset.data.features = pd.DataFrame({'a': [10]})
     mock_dataset.data.targets = pd.DataFrame({'b': [20]})
