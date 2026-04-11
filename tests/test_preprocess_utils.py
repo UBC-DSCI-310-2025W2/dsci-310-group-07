@@ -13,6 +13,9 @@ from src.preprocess_utils import drop_red_wine_samples, split_data
 # -------------------
 
 def test_drop_red_wine_samples_basic():
+    """
+    Verifies that the function correctly identifies and removes the first 1599 rows (assumed to be red wine) and returns the remaining samples.
+    """
     df = pd.DataFrame({
         "feature": range(1605),
         "quality": [5] * 1605
@@ -25,6 +28,9 @@ def test_drop_red_wine_samples_basic():
 
 
 def test_drop_red_wine_samples_exactly_1599_rows():
+    """
+    Checks that the function returns an empty DataFrame when the input contains exactly 1599 rows, as all rows are dropped.
+    """
     df = pd.DataFrame({
         "feature": range(1599),
         "quality": [5] * 1599
@@ -36,6 +42,9 @@ def test_drop_red_wine_samples_exactly_1599_rows():
 
 
 def test_drop_red_wine_samples_too_short():
+    """
+    Ensures that a ValueError is raised if the input DataFrame has fewer than 1599 rows, making it impossible to drop that many.
+    """
     df = pd.DataFrame({
         "feature": range(100),
         "quality": [5] * 100
@@ -46,6 +55,9 @@ def test_drop_red_wine_samples_too_short():
 
 
 def test_drop_red_wine_samples_wrong_input():
+    """
+    Ensures a TypeError is raised when the input provided is not a pandas DataFrame.
+    """
     with pytest.raises(TypeError):
         drop_red_wine_samples([1, 2, 3])
 
@@ -55,6 +67,9 @@ def test_drop_red_wine_samples_wrong_input():
 # -------------------
 
 def test_split_data_basic():
+    """
+    Validates that the dataset is correctly partitioned into six components (X and y for train, validation, and test sets) and that the total number of rows is preserved.
+    """
     df = pd.DataFrame({
         "alcohol": range(20),
         "sugar": range(100, 120),
@@ -69,6 +84,9 @@ def test_split_data_basic():
 
 
 def test_split_data_returns_expected_number_of_outputs():
+    """
+    Confirms that the function consistently returns a tuple of 6 items representing the data splits.
+    """
     df = pd.DataFrame({
         "alcohol": range(20),
         "sugar": range(100, 120),
@@ -81,6 +99,9 @@ def test_split_data_returns_expected_number_of_outputs():
 
 
 def test_split_data_missing_quality_column():
+    """
+    Ensures a ValueError is raised if the input DataFrame does not contain the 'quality' target column required for splitting.
+    """
     df = pd.DataFrame({
         "alcohol": range(20),
         "sugar": range(100, 120)
@@ -91,5 +112,8 @@ def test_split_data_missing_quality_column():
 
 
 def test_split_data_wrong_input():
+    """
+    Ensures a TypeError is raised when the input provided to split_data is not a pandas DataFrame.
+    """
     with pytest.raises(TypeError):
         split_data("not a dataframe")
