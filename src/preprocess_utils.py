@@ -25,6 +25,14 @@ def drop_red_wine_samples(df: pd.DataFrame) -> pd.DataFrame:
         If df is not a pandas DataFrame.
     ValueError:
         If df has fewer than 1599 rows.
+
+    Examples
+    ---------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'quality': range(2000)})
+    >>> white_wine = drop_red_wine_samples(df)
+    >>> len(white_wine)
+    401
     """
     if not isinstance(df, pd.DataFrame):
         raise TypeError("df must be a pandas DataFrame.")
@@ -55,6 +63,14 @@ def split_data(df: pd.DataFrame):
         If df is not a pandas DataFrame.
     ValueError:
         If 'quality' is not a column in df.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'a': range(20), 'quality': range(20)})
+    >>> X_train, X_val, X_test, y_train, y_val, y_test = split_data(df)
+    >>> X_train.shape
+    (12, 1)
     """
     if not isinstance(df, pd.DataFrame):
         raise TypeError("df must be a pandas DataFrame.")
