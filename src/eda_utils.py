@@ -18,6 +18,16 @@ def save_feature_description(path_to_save, table_data=None):
         TypeError: If path_to_save is not a string.
         ValueError: If path_to_save is empty.
         TypeError: If table_data is not a list when provided.
+
+    Examples:
+    >>> import os
+    >>> # Using default wine feature data
+    >>> save_feature_description("results/features.csv")
+    >>> os.path.exists("results/features.csv")
+    True
+    >>> # Using custom table data
+    >>> custom_data = [["Col1", "Role", "Type", "Units", "Desc", "NA"]]
+    >>> save_feature_description("results/custom.csv", table_data=custom_data)
     """
 
     if not isinstance(path_to_save, str):
@@ -84,6 +94,13 @@ def save_data_split_pie_chart(X_train, X_valid, X_test, path_to_save):
     Raises:
         TypeError: Invalid input types
         ValueError: If empty path to save figure or empty dataset
+
+    Examples:
+    >>> import os
+    >>> train, val, test = [1]*70, [1]*15, [1]*15
+    >>> save_data_split_pie_chart(train, val, test, "results/split_pie.png")
+    >>> os.path.exists("results/split_pie.png")
+    True
     """
 
     # --- Input validation ---
@@ -137,6 +154,14 @@ def save_wine_quality_hist(y_train, path_to_save):
     Raises:
         TypeError: If path to save is not a string or y_train is not a Datafrane or Series
         ValueError: If path to save histogram is empty
+
+    Example:
+    >>> import pandas as pd
+    >>> import os
+    >>> y = pd.Series([5, 6, 6, 7, 5, 8], name='quality')
+    >>> save_wine_quality_hist(y, "results/quality_hist.png")
+    >>> os.path.exists("results/quality_hist.png")
+    True
     """
 
     if not isinstance(path_to_save, str):
@@ -173,6 +198,14 @@ def save_feature_dist(X_train, path_to_save):
     Raises:
         TypeError: If X_train is not a Dataframe or path to save is not a string
         ValueError: If path to save is an empty path
+
+    Examples:
+    >>> import pandas as pd
+    >>> import os
+    >>> X = pd.DataFrame({'acidity': [7.0, 6.3], 'alcohol': [9.4, 10.5]})
+    >>> save_feature_dist(X, "results/test_dist.png")
+    >>> os.path.exists("results/test_dist.png")
+    True
     """
 
     if not isinstance(path_to_save, str):
@@ -208,6 +241,15 @@ def save_corr_mat(X_train, y_train, path_to_save):
     Raises:
         TypeError: If X_train is not a Dataframe or y_train is empty
         ValueError: Empty data or invalid path
+
+    Examples:
+    >>> import pandas as pd
+    >>> import os
+    >>> X = pd.DataFrame({'alcohol': [10, 12], 'sugar': [1, 5]})
+    >>> y = pd.Series([6, 5], name='quality')
+    >>> save_corr_mat(X, y, "results/test_corr.png")
+    >>> os.path.exists("results/test_corr.png")
+    True
     """
 
     # --- Input validation ---

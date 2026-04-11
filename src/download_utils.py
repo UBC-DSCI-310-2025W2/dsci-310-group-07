@@ -16,6 +16,10 @@ def download_data(uci_id: int, path_to_save: str) -> pd.DataFrame:
     Raises:
         TypeError: If input types are incorrect
         ValueError: If uci_id is not positive integer
+
+    Examples:
+    >>> download_data(186, "data/raw/wine_quality.csv")
+    # This will create a 'wine_quality.csv' file in the data/raw folder.
     """
 
     # -------------------

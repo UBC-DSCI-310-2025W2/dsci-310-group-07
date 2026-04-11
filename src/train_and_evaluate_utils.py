@@ -23,6 +23,18 @@ def save_best_params(grid_search: GridSearchCV, path_to_save: str) -> None:
             If grid_search is not a GridSearchCV object or if path_to_save is not a string
         ValueError: 
             If path to save is an empty string.
+
+    Examples:
+    >>> from sklearn.model_selection import GridSearchCV
+    >>> from sklearn.svm import SVC
+    >>> import pandas as pd
+    >>> import os
+    >>> # Setup a simple grid search
+    >>> X, y = [[1, 2], [3, 4]], [0, 1]
+    >>> grid = GridSearchCV(SVC(), {'C': [1, 10]}).fit(X, y)
+    >>> save_best_params(grid, "results/best_params.csv")
+    >>> os.path.exists("results/best_params.csv")
+    True
     """
     if not isinstance(grid_search, GridSearchCV):
         raise TypeError("gird_search must be a sklearn.model_selection.GridSearchCV object.")
@@ -58,6 +70,14 @@ def save_test_pred(test_pred: np.ndarray, path_to_save: str) -> None:
             If test_pred is not a numpy array or path to save is not a string
         ValueError: 
             If path to save is an empty string.
+
+    Examples:
+    >>> import numpy as np
+    >>> import os
+    >>> preds = np.array([5, 6, 7])
+    >>> save_test_pred(preds, "results/test_predictions.csv")
+    >>> os.path.exists("results/test_predictions.csv")
+    True
     """
     if not isinstance(test_pred, np.ndarray):
         raise TypeError("test_pred must be a numpy array.")
@@ -99,6 +119,16 @@ def save_conf_mat(y_test: pd.DataFrame, test_pred: np.ndarray, path_to_save: str
             or path to save is not a string
         ValueError: 
             If y_test and test_pred have different length or path to save is an empty string.
+
+    Examples:
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> import os
+    >>> y_true = pd.DataFrame({'quality': [5, 6, 7]})
+    >>> y_pred = np.array([5, 5, 7])
+    >>> save_conf_mat(y_true, y_pred, "results/cm_plot.png")
+    >>> os.path.exists("results/cm_plot.png")
+    True
     """
     if not isinstance(y_test, pd.DataFrame):
         raise TypeError("y_test must be a pd.DataFrame")
