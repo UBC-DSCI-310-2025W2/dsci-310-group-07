@@ -74,6 +74,12 @@ This will:
 4. Train and evaluate the Random Forest classifier
 5. Generate the final Quarto report in both HTML and PDF formats
 
+#### Running Data Validation
+To run the data validation:
+```bash
+make validate
+```
+
 #### Resetting the Pipeline
 To reset the project to a clean state, use the following command:
 
