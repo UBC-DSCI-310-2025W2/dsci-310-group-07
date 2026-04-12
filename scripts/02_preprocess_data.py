@@ -3,9 +3,7 @@ import sys
 import argparse
 import pandas as pd
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from src.preprocess_utils import drop_red_wine_samples, split_data
+from dsci310_2025w2_winequalitypy.preprocess_utils import drop_red_wine_samples, split_data
 
 if __name__ == "__main__":
     # define parser and add args

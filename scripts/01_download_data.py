@@ -2,9 +2,7 @@ import os
 import sys
 import argparse
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from src.download_utils import download_data
+from dsci310_2025w2_winequalitypy.download_utils import download_data
 
 if __name__ == "__main__":
     # define parser and add args
