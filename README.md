@@ -50,49 +50,6 @@ winpty docker compose run --rm -it --service-ports project bash
 
 <br>
 
-### Project Structure
-
-- `src/` contains the reusable Python utility functions used throughout the pipeline, including functions for downloading data, preprocessing, exploratory data analysis, and model training/evaluation.
-- `tests/` contains the corresponding `pytest` test files that verify the correctness of the reusable functions in `src/`.
-
-### Running Pytest
-
-This project uses `pytest` to test the reusable utility functions in the `src/` directory. The test files are located in the `tests/` directory.
-
-Before running tests, make sure you have already:
-
-1. cloned the repository,
-2. navigated to the project root directory, and
-3. started the Docker container as described above.
-
-Once you are inside the container, you can run the tests from the project root.
-
-#### Run All Tests
-To run the full test suite, use:
-
-```bash
-pytest
-```
-
-This will automatically discover and run all test files in the ```tests/``` directory.
-
-#### Run One Specific Test File
-To run only one test file, use:
-
-```bash
-pytest tests/test_preprocess_utils.py
-```
-
-You can similarly run any of the other test files:
-
-```bash
-pytest tests/test_download_utils.py
-pytest tests/test_eda_utils.py
-pytest tests/test_train_and_evaluate_utils.py
-```
-
-<br>
-
 ### Using Make
 This project uses a [Makefile](Makefile) to automate the full data analysis and reporting pipeline.
 
@@ -170,4 +127,4 @@ docker compose down
 ```
 
 ## Licenses
-The project report is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/). The software and code in the project are licensed under the [MIT License](https://opensource.org/licenses/MIT). Further details regarding the licenses are provided in [LICENSE.md](LICENSE.md).
+The project report is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/). The software and code in the project are licensed under the [MIT License](https://opensource.org/licenses/MIT). Further details regarding the licenses are provided in [LICENSE.md](LICENSE).
