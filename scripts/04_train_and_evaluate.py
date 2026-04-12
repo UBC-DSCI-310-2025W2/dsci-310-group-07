@@ -1,14 +1,10 @@
-import os
-import sys
 import argparse
 import pandas as pd
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from src.train_and_evaluate_utils import (
+from dsci310_2025w2_winequalitypy.train_and_evaluate_utils import (
     save_best_params, 
     save_test_pred, 
     save_conf_mat

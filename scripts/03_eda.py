@@ -1,11 +1,7 @@
-import os
-import sys
 import argparse
 import pandas as pd
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from src.eda_utils import (
+from dsci310_2025w2_winequalitypy.eda_utils import (
     save_feature_description,
     save_data_split_pie_chart,
     save_wine_quality_hist,
