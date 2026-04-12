@@ -1,5 +1,3 @@
-import os
-import sys
 import argparse
 
 from dsci310_2025w2_winequalitypy.download_utils import download_data
