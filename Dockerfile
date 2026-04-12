@@ -19,6 +19,7 @@ RUN conda install -c conda-forge conda-lock -y && \
     /opt/conda/envs/project_env/bin/pip install \
         pytest==9.0.2 \
         ucimlrepo==0.0.7 \
+        tabulate==0.10.0 \
         "dsci310-2025w2-winequalitypy @ git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@v0.0.1" && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
 
