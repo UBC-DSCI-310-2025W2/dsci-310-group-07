@@ -29,6 +29,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
+from IPython.display import Markdown
 ```
 
 ```{python}
@@ -46,6 +47,7 @@ X_train = pd.read_csv('../data/processed/train_data/X_train.csv')
 y_train = pd.read_csv('../data/processed/train_data/y_train.csv')
 X_valid = pd.read_csv('../data/processed/valid_data/X_valid.csv')
 X_test = pd.read_csv('../data/processed/test_data/X_test.csv')
+y_test = pd.read_csv('../data/processed/test_data/y_test.csv')
 
 X_train_len = X_train.shape[0]
 X_valid_len = X_valid.shape[0]
@@ -60,8 +62,7 @@ white_wine_data_len = X_train_len + X_valid_len + X_test_len
 
 # get prediction and ground truth, define classification report
 pred = pd.read_csv('../data/processed/prediction/test_prediction.csv')
-y_test = pd.read_csv('../data/processed/test_data/y_test.csv')
-report = classification_report(y_test, pred, output_dict=True, zero_division=0)
+report = classification_report(y_test.values.ravel(), pred.values.ravel(), output_dict=True, zero_division=0)
 ```
 
 # Summary
@@ -72,27 +73,21 @@ This study explored the physicochemical characteristics of white wines and their
 
 Wine is one of the most widely consumed beverages in the world, valued for its taste, cultural significance, and sensory qualities. Determining wine quality, even for expert tasters, can be challenging because sensory evaluation is inherently subjective and influenced by multiple factors [@jackson2020]. Vinho verde wine is produced in the Minho region of northern Portugal and is known for its light and fresh characteristics.
 
-In this project, we focus on white vinho verde wine and investigate the following question: **can the physicochemical properties of white vinho verde wine — such as acidity, sugar content, and alcohol level — be used to accurately classify wine quality into discrete score categories?** To answer this question, we use a dataset from the UC Irvine Machine Learning Repository [@cortez2009] and apply a Random Forest classifier to explore the relationship between chemical measurements and expert-assigned sensory quality scores.
+In this project, we focus on white vinho verde wine and investigate the following question: **can a Random Forest classifier, trained on physicochemical measurements of white vinho verde wine (including acidity, residual sugar, and alcohol content), accurately predict expert-assigned quality scores across all score categories (3–9)?** To answer this question, we use a dataset from the UC Irvine Machine Learning Repository [@cortez2009] and evaluate model performance with particular attention to minority class prediction under class imbalance.
 
 ## Dataset Description
 
 The [Wine Quality dataset](https://archive-beta.ics.uci.edu/dataset/186/wine+quality) contains physicochemical measurements of Portuguese *Vinho Verde* wines. Each observation corresponds to a wine sample that was evaluated using laboratory tests and sensory analysis by wine experts.
 
-The dataset includes `{python} feature_num` physicochemical input variables (e.g., acidity, pH, alcohol content) and `{python} target_num` target variable representing wine quality. Wine quality scores were assigned as the median of at least three expert evaluations, with ratings ranging from 0 (very bad) to 10 (excellent).
-
-Two datasets exist in the Wine Quality dataset collection:
-
-- Red wine: `{python} red_wine_data_len` observations  
-- White wine: `{python} white_wine_data_len` observations  
-
-For this analysis, we use only the white wine dataset as it contains the most number of samples.
+The dataset includes `{python} feature_num` physicochemical input variables (e.g., acidity, pH, alcohol content) and `{python} target_num` target variable representing wine quality. Wine quality scores were assigned as the median of at least three expert evaluations, with ratings ranging from 0 (very bad) to 10 (excellent). The full dataset contains two subsets — red wine (`{python} red_wine_data_len` observations) and white wine (`{python} white_wine_data_len` observations) — of which we use only the white wine subset as it contains the larger number of samples.
 
 ```{python}
 #| label: tbl-feature-description
 #| tbl-cap: Description of dataset variables
 
 feature_df = pd.read_csv("../output/eda/feature_description.csv")
-feature_df.head(20).style.hide(axis="index")
+feature_df['Description'] = feature_df['Description'].str[:50] + '...'
+Markdown(feature_df.head(20).to_markdown(index=False))
 ```
 
 @tbl-feature-description shows that all features are numerical and there are no missing values in any feature.
@@ -107,7 +102,7 @@ To recreate the original dataset structure, we combine the features and target i
 
 ## Exploratory Data Analysis
 
-Since EDA is generally performed after splitting the data, we first split the dataset into training and test sets, and then perform EDA using the training set. The dataset is initially split with a 70/30 ratio, and the train set is further split into train and validation sets. Consequently, the train set contains `{python} X_train_len` samples, the validation set contains `{python} X_valid_len` samples, and the test set contains `{python} X_test_len` samples. @fig-pie-chart visualizes the proportion of each split.
+Since EDA is generally performed after splitting the data, we first split the dataset into training and test sets, and then perform EDA using the training set. The dataset is initially split with a 70/30 ratio, and the train set is further split into train and validation sets. Consequently, the train set contains `{python} X_train_len` samples, the validation set contains `{python} X_valid_len` samples, and the test set contains `{python} X_test_len` samples.
 
 We examine the basic structure of the dataset by checking its shape, column names, data types, missing values, and statistical summary of each feature. We visualize the distribution of the target variable `quality` using a bar chart, which helps us understand how wine quality scores are distributed across the dataset. We also generate histograms for each physicochemical feature to observe patterns such as skewness, spread, and potential outliers. Finally, we compute and visualize a correlation matrix to measure the linear relationships between all numerical variables.
 
@@ -121,7 +116,11 @@ Since the random forest classifier is scale-invariant, we do not scale the data 
 
 ## Exploratory Data Analysis
 
+### Data Split
+
 ![Data Split Proportion](../output/eda/data_split_pie_chart.png){#fig-pie-chart width=50%}
+
+@fig-pie-chart visualizes the proportion of each split. The training set accounts for 55% of the data, the test set for 30%, and the validation set for the remaining 15%.
 
 ### Dataset Structure
 
@@ -129,7 +128,7 @@ Since the random forest classifier is scale-invariant, we do not scale the data 
 #| label: tbl-summary-stat
 #| tbl-cap: Training Set Summary Statistics
 
-X_train.describe().T.style
+Markdown(X_train.describe().T.round(2).to_markdown())
 ```
 
 @tbl-summary-stat summarizes the training set. The dataset contains `{python} X_train_len` samples across `{python} feature_num` features, all of which are numerical with no missing values. Features vary considerably in scale: for instance, `total sulfur dioxide` ranges into the hundreds while `density` remains close to 1.0 throughout. This variation in scale and range is expected given the different physical and chemical properties being measured.
@@ -142,7 +141,7 @@ X_train.describe().T.style
 
 ### Feature Distributions
 
-![Feature Distributions](../output/eda/feature_distributions.png){#fig-feature-dist width=70%}
+![Feature Distributions](../output/eda/feature_distributions.png){#fig-feature-dist width=70% fig-pos="H"}
 
 @fig-feature-dist shows that most physicochemical variables fall within fairly narrow ranges. For example, pH values are centered around 3.1 with a small spread, and density is close to 0.995 for most wines. Alcohol content ranges roughly from 9% to 14%, with an average around 10.5%. In contrast, residual sugar varies much more widely — from under 1 to over 60 — indicating some extreme observations.
 
@@ -160,7 +159,7 @@ Several variables are right-skewed, meaning most wines have lower values with a 
 #| label: tbl-model-params
 #| tbl-cap: Best Performing Model Parameters
 
-params_df.head().style.hide(axis='index')
+Markdown(params_df.head().to_markdown(index=False))
 ```
 
 As shown in @tbl-model-params, the best hyperparameters found via grid search are a `max_depth` of `{python} max_depth` and `n_estimators` of `{python} n_estimators`.
@@ -176,8 +175,6 @@ quality_6_precision = round(100 * report["6"]['precision'])
 quality_8_precision = round(100 * report["8"]['precision'])
 ```
 
-![Test Data Confusion Matrix](../output/prediction/confusion_matrix.png){#fig-conf-mat width=70%}
-
 The model performance metrics are defined as follows:
 
 - **Accuracy** ($\frac{TP + TN}{TP + TN + FP + FN}$): proportion of correct classifications out of all predictions.
@@ -186,6 +183,8 @@ The model performance metrics are defined as follows:
 - **F1-score** ($2 \times \frac{Precision \times Recall}{Precision + Recall}$): harmonic mean of precision and recall, useful under class imbalance.
 
 The model achieves a macro test accuracy of `{python} macro_accuracy`%, with macro precision of `{python} macro_precision`% and macro recall of `{python} macro_recall`%, indicating suboptimal overall classification performance. Given the significant class imbalance in the dataset, accuracy alone is not a reliable metric, and the macro-averaged scores reflect the model's difficulty with minority classes.
+
+![Test Data Confusion Matrix](../output/prediction/confusion_matrix.png){#fig-conf-mat width=70% fig-pos="H"}
 
 There is a notable gap in precision between minority and dominant classes: wine quality 4 and 8 have precision of `{python} quality_4_precision`% and `{python} quality_8_precision`% respectively, while the most frequent class (quality 6) achieves `{python} quality_6_precision`%. @fig-conf-mat further illustrates this pattern — dominant classes show more true positives, while minority classes have more false positives than true positives. Both minority classes also have the lowest F1-scores, confirming that the model's performance is biased toward dominant classes. Even among dominant classes (5, 6, and 7), F1-scores remain moderate, suggesting that the model's overall ability to predict white wine quality is limited.
 
