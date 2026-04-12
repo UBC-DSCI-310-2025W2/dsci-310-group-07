@@ -7,7 +7,8 @@ dependencies:
   - matplotlib=3.10.8
   - pandas=3.0.1
   - scikit-learn=1.8.0
-  - pytest=9.0.2
   - pip=25.0.1
   - pip:
       - ucimlrepo==0.0.7
+      - pytest==9.0.2
+      - dsci310-2025w2-winequalitypy @ git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@v0.0.1

@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # install conda-lock and create environment from lock file
 RUN conda install -c conda-forge conda-lock -y && \
     conda-lock install -n project_env /tmp/conda-lock.yml && \
+    /opt/conda/envs/project_env/bin/pip install \
+        pytest==9.0.2 \
+        ucimlrepo==0.0.7 \
+        "dsci310-2025w2-winequalitypy @ git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@v0.0.1" && \
     echo "source /opt/conda/etc/profile.d/conda.sh && conda activate project_env" >> ~/.bashrc
 
 # install Quarto using architecture-aware .deb package
