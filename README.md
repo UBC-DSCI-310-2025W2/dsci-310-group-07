@@ -169,5 +169,11 @@ exit
 docker compose down
 ```
 
+## Software Package
+
+The reusable functions used in this analysis have been abstracted into a separate Python software package to improve modularity, reproducibility, and reuse across projects. This package contains helper functions for downloading the data, preprocessing the dataset, conducting exploratory data analysis, and training and evaluating models.
+
+The software package repository can be found [here](https://github.com/UBC-DSCI-310-2025W2/winequalitypy).
+
 ## Licenses
 The project report is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/). The software and code in the project are licensed under the [MIT License](https://opensource.org/licenses/MIT). Further details regarding the licenses are provided in [LICENSE.md](LICENSE.md).
