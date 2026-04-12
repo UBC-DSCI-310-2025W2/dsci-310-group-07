@@ -13,10 +13,10 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: 2152060254972e9beac4a047a8e9c4208b4b1de1496af1d20907ddc63a48aabc
-    osx-64: 7585c9d4d401896555f97717a7c31dff30371e41d10e8060246031a14733034b
-    osx-arm64: 18d7f45c4df776a3cc8f86d24e28ef39c0b939dc538936fedc716f647e2602bd
-    win-64: 538966a00e8dd39716694778f618c656f992e055881048f2a584a7ebc1d3333e
+    linux-64: c42031cad8dc51e9a2ca7ce21abe6f0ec0699c6811397fac89df902747a3132c
+    osx-64: c1850c3fe1c5540ba2bbc3e1c3511888e6c78872bb3bd9c22607cb70232d55bd
+    osx-arm64: c8936ec3c02ecdf874d63749f9f0a2cc50d1a1c83d331346315304bd9464ab82
+    win-64: 7d1469586698124c2b74f129837c4c5ff4222f8e37a88b0fa5667960ee422443
     linux-aarch64: 910c3973f2e589d601c37dab18b051b1e5237a3475d9fd6e0b85f69359e141ee
   channels:
   - url: conda-forge
@@ -7110,16 +7110,16 @@ package:
   category: main
   optional: false
 - name: libjpeg-turbo
-  version: 3.1.2
+  version: 3.1.4.1
   manager: conda
   platform: linux-64
   dependencies:
     __glibc: '>=2.17,<3.0.a0'
     libgcc: '>=14'
-  url: https://conda.anaconda.org/conda-forge/linux-64/libjpeg-turbo-3.1.2-hb03c661_0.conda
+  url: https://conda.anaconda.org/conda-forge/linux-64/libjpeg-turbo-3.1.4.1-hb03c661_0.conda
   hash:
-    md5: 8397539e3a0bbd1695584fb4f927485a
-    sha256: cc9aba923eea0af8e30e0f94f2ad7156e2984d80d1e8e7fe6be5a1f257f0eb32
+    md5: 6178c6f2fb254558238ef4e6c56fb782
+    sha256: 10056646c28115b174de81a44e23e3a0a3b95b5347d2e6c45cc6d49d35294256
   category: main
   optional: false
 - name: libjpeg-turbo
@@ -7135,41 +7135,41 @@ package:
   category: main
   optional: false
 - name: libjpeg-turbo
-  version: 3.1.2
+  version: 3.1.4.1
   manager: conda
   platform: osx-64
   dependencies:
-    __osx: '>=10.13'
-  url: https://conda.anaconda.org/conda-forge/osx-64/libjpeg-turbo-3.1.2-h8616949_0.conda
+    __osx: '>=11.0'
+  url: https://conda.anaconda.org/conda-forge/osx-64/libjpeg-turbo-3.1.4.1-ha1e9b39_0.conda
   hash:
-    md5: 48dda187f169f5a8f1e5e07701d5cdd9
-    sha256: ebe2877abc046688d6ea299e80d8322d10c69763f13a102010f90f7168cc5f54
+    md5: 57cc1464d457d01ac78f5860b9ca1714
+    sha256: 6b809d8acb6b97bbb1a858eb4ba7b7163c67257b6c3f199dd9d1e0751f4c5b18
   category: main
   optional: false
 - name: libjpeg-turbo
-  version: 3.1.2
+  version: 3.1.4.1
   manager: conda
   platform: osx-arm64
   dependencies:
     __osx: '>=11.0'
-  url: https://conda.anaconda.org/conda-forge/osx-arm64/libjpeg-turbo-3.1.2-hc919400_0.conda
+  url: https://conda.anaconda.org/conda-forge/osx-arm64/libjpeg-turbo-3.1.4.1-h84a0fba_0.conda
   hash:
-    md5: f0695fbecf1006f27f4395d64bd0c4b8
-    sha256: 6c061c56058bb10374daaef50e81b39cf43e8aee21f0037022c0c39c4f31872f
+    md5: b8a7544c83a67258b0e8592ec6a5d322
+    sha256: 17e035ae6a520ff6a6bb5dd93a4a7c3895891f4f9743bcb8c6ef607445a31cd0
   category: main
   optional: false
 - name: libjpeg-turbo
-  version: 3.1.2
+  version: 3.1.4.1
   manager: conda
   platform: win-64
   dependencies:
     ucrt: '>=10.0.20348.0'
     vc: '>=14.3,<15'
     vc14_runtime: '>=14.44.35208'
-  url: https://conda.anaconda.org/conda-forge/win-64/libjpeg-turbo-3.1.2-hfd05255_0.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/libjpeg-turbo-3.1.4.1-hfd05255_0.conda
   hash:
-    md5: 56a686f92ac0273c0f6af58858a3f013
-    sha256: 795e2d4feb2f7fc4a2c6e921871575feb32b8082b5760726791f080d1e2c2597
+    md5: 25a127bad5470852b30b239f030ec95b
+    sha256: 698d57b5b90120270eaa401298319fcb25ea186ae95b340c2f4813ed9171083d
   category: main
   optional: false
 - name: liblapack
@@ -15455,6 +15455,46 @@ package:
     sha256: 368d8628424966fd8f9c8018326a9c779e06913dd39e646cf331226acc90e5b2
   category: main
   optional: false
+- name: annotated-types
+  version: 0.7.0
+  manager: pip
+  platform: linux-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl
+  hash:
+    sha256: 1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53
+  category: main
+  optional: false
+- name: annotated-types
+  version: 0.7.0
+  manager: pip
+  platform: osx-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl
+  hash:
+    sha256: 1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53
+  category: main
+  optional: false
+- name: annotated-types
+  version: 0.7.0
+  manager: pip
+  platform: osx-arm64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl
+  hash:
+    sha256: 1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53
+  category: main
+  optional: false
+- name: annotated-types
+  version: 0.7.0
+  manager: pip
+  platform: win-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl
+  hash:
+    sha256: 1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53
+  category: main
+  optional: false
 - name: dsci310-2025w2-winequalitypy
   version: 0.1.0
   manager: pip
@@ -15464,12 +15504,12 @@ package:
     pandas: 3.0.1
     scikit-learn: 1.8.0
     ucimlrepo: 0.0.7
-  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   hash:
-    sha256: 5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    sha256: 1015c6b070be1abc204b48ea82ec5d90e2993df7
   source:
     type: url
-    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   category: main
   optional: false
 - name: dsci310-2025w2-winequalitypy
@@ -15481,12 +15521,12 @@ package:
     pandas: 3.0.1
     scikit-learn: 1.8.0
     ucimlrepo: 0.0.7
-  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   hash:
-    sha256: 5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    sha256: 1015c6b070be1abc204b48ea82ec5d90e2993df7
   source:
     type: url
-    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   category: main
   optional: false
 - name: dsci310-2025w2-winequalitypy
@@ -15498,12 +15538,12 @@ package:
     pandas: 3.0.1
     scikit-learn: 1.8.0
     ucimlrepo: 0.0.7
-  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   hash:
-    sha256: 5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    sha256: 1015c6b070be1abc204b48ea82ec5d90e2993df7
   source:
     type: url
-    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   category: main
   optional: false
 - name: dsci310-2025w2-winequalitypy
@@ -15515,12 +15555,12 @@ package:
     pandas: 3.0.1
     scikit-learn: 1.8.0
     ucimlrepo: 0.0.7
-  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+  url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   hash:
-    sha256: 5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    sha256: 1015c6b070be1abc204b48ea82ec5d90e2993df7
   source:
     type: url
-    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy@5e894fcf09865eb4a03a0f159c0e76d16dcdf533
+    url: git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@1015c6b070be1abc204b48ea82ec5d90e2993df7
   category: main
   optional: false
 - name: iniconfig
@@ -15563,6 +15603,106 @@ package:
     sha256: f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12
   category: main
   optional: false
+- name: mypy-extensions
+  version: 1.1.0
+  manager: pip
+  platform: linux-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl
+  hash:
+    sha256: 1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505
+  category: main
+  optional: false
+- name: mypy-extensions
+  version: 1.1.0
+  manager: pip
+  platform: osx-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl
+  hash:
+    sha256: 1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505
+  category: main
+  optional: false
+- name: mypy-extensions
+  version: 1.1.0
+  manager: pip
+  platform: osx-arm64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl
+  hash:
+    sha256: 1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505
+  category: main
+  optional: false
+- name: mypy-extensions
+  version: 1.1.0
+  manager: pip
+  platform: win-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl
+  hash:
+    sha256: 1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505
+  category: main
+  optional: false
+- name: pandera
+  version: 0.30.1
+  manager: pip
+  platform: linux-64
+  dependencies:
+    packaging: '>=20.0'
+    pydantic: '*'
+    typeguard: '*'
+    typing-extensions: '*'
+    typing-inspect: '>=0.6.0'
+  url: https://files.pythonhosted.org/packages/37/17/4c89d26ba4f6fb7fc5d3c7f3558aaf4b1e4d843b855e01300a86876987cf/pandera-0.30.1-py3-none-any.whl
+  hash:
+    sha256: 910656a8c1e10a9759b57dd58ac9dd16298e64baaaae476f1c2c40ee326fb263
+  category: main
+  optional: false
+- name: pandera
+  version: 0.30.1
+  manager: pip
+  platform: osx-64
+  dependencies:
+    packaging: '>=20.0'
+    pydantic: '*'
+    typeguard: '*'
+    typing-extensions: '*'
+    typing-inspect: '>=0.6.0'
+  url: https://files.pythonhosted.org/packages/37/17/4c89d26ba4f6fb7fc5d3c7f3558aaf4b1e4d843b855e01300a86876987cf/pandera-0.30.1-py3-none-any.whl
+  hash:
+    sha256: 910656a8c1e10a9759b57dd58ac9dd16298e64baaaae476f1c2c40ee326fb263
+  category: main
+  optional: false
+- name: pandera
+  version: 0.30.1
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    packaging: '>=20.0'
+    pydantic: '*'
+    typeguard: '*'
+    typing-extensions: '*'
+    typing-inspect: '>=0.6.0'
+  url: https://files.pythonhosted.org/packages/37/17/4c89d26ba4f6fb7fc5d3c7f3558aaf4b1e4d843b855e01300a86876987cf/pandera-0.30.1-py3-none-any.whl
+  hash:
+    sha256: 910656a8c1e10a9759b57dd58ac9dd16298e64baaaae476f1c2c40ee326fb263
+  category: main
+  optional: false
+- name: pandera
+  version: 0.30.1
+  manager: pip
+  platform: win-64
+  dependencies:
+    packaging: '>=20.0'
+    pydantic: '*'
+    typeguard: '*'
+    typing-extensions: '*'
+    typing-inspect: '>=0.6.0'
+  url: https://files.pythonhosted.org/packages/37/17/4c89d26ba4f6fb7fc5d3c7f3558aaf4b1e4d843b855e01300a86876987cf/pandera-0.30.1-py3-none-any.whl
+  hash:
+    sha256: 910656a8c1e10a9759b57dd58ac9dd16298e64baaaae476f1c2c40ee326fb263
+  category: main
+  optional: false
 - name: pluggy
   version: 1.6.0
   manager: pip
@@ -15601,6 +15741,106 @@ package:
   url: https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl
   hash:
     sha256: e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746
+  category: main
+  optional: false
+- name: pydantic
+  version: 2.12.5
+  manager: pip
+  platform: linux-64
+  dependencies:
+    annotated-types: '>=0.6.0'
+    pydantic-core: 2.41.5
+    typing-extensions: '>=4.14.1'
+    typing-inspection: '>=0.4.2'
+  url: https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl
+  hash:
+    sha256: e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d
+  category: main
+  optional: false
+- name: pydantic
+  version: 2.12.5
+  manager: pip
+  platform: osx-64
+  dependencies:
+    annotated-types: '>=0.6.0'
+    pydantic-core: 2.41.5
+    typing-extensions: '>=4.14.1'
+    typing-inspection: '>=0.4.2'
+  url: https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl
+  hash:
+    sha256: e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d
+  category: main
+  optional: false
+- name: pydantic
+  version: 2.12.5
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    annotated-types: '>=0.6.0'
+    pydantic-core: 2.41.5
+    typing-extensions: '>=4.14.1'
+    typing-inspection: '>=0.4.2'
+  url: https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl
+  hash:
+    sha256: e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d
+  category: main
+  optional: false
+- name: pydantic
+  version: 2.12.5
+  manager: pip
+  platform: win-64
+  dependencies:
+    annotated-types: '>=0.6.0'
+    pydantic-core: 2.41.5
+    typing-extensions: '>=4.14.1'
+    typing-inspection: '>=0.4.2'
+  url: https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl
+  hash:
+    sha256: e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d
+  category: main
+  optional: false
+- name: pydantic-core
+  version: 2.41.5
+  manager: pip
+  platform: linux-64
+  dependencies:
+    typing-extensions: '>=4.14.1'
+  url: https://files.pythonhosted.org/packages/4c/d2/ef2074dc020dd6e109611a8be4449b98cd25e1b9b8a303c2f0fca2f2bcf7/pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  hash:
+    sha256: 22f0fb8c1c583a3b6f24df2470833b40207e907b90c928cc8d3594b76f874375
+  category: main
+  optional: false
+- name: pydantic-core
+  version: 2.41.5
+  manager: pip
+  platform: osx-64
+  dependencies:
+    typing-extensions: '>=4.14.1'
+  url: https://files.pythonhosted.org/packages/ea/28/46b7c5c9635ae96ea0fbb779e271a38129df2550f763937659ee6c5dbc65/pydantic_core-2.41.5-cp314-cp314-macosx_10_12_x86_64.whl
+  hash:
+    sha256: 3f37a19d7ebcdd20b96485056ba9e8b304e27d9904d233d7b1015db320e51f0a
+  category: main
+  optional: false
+- name: pydantic-core
+  version: 2.41.5
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    typing-extensions: '>=4.14.1'
+  url: https://files.pythonhosted.org/packages/74/1a/145646e5687e8d9a1e8d09acb278c8535ebe9e972e1f162ed338a622f193/pydantic_core-2.41.5-cp314-cp314-macosx_11_0_arm64.whl
+  hash:
+    sha256: 1d1d9764366c73f996edd17abb6d9d7649a7eb690006ab6adbda117717099b14
+  category: main
+  optional: false
+- name: pydantic-core
+  version: 2.41.5
+  manager: pip
+  platform: win-64
+  dependencies:
+    typing-extensions: '>=4.14.1'
+  url: https://files.pythonhosted.org/packages/48/5d/56ba7b24e9557f99c9237e29f5c09913c81eeb2f3217e40e922353668092/pydantic_core-2.41.5-cp314-cp314-win_amd64.whl
+  hash:
+    sha256: 8e7c86f27c585ef37c35e56a96363ab8de4e549a95512445b85c96d3e2f7c1bf
   category: main
   optional: false
 - name: pytest
@@ -15658,6 +15898,182 @@ package:
   url: https://files.pythonhosted.org/packages/3b/ab/b3226f0bd7cdcf710fbede2b3548584366da3b19b5021e74f5bde2a8fa3f/pytest-9.0.2-py3-none-any.whl
   hash:
     sha256: 711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b
+  category: main
+  optional: false
+- name: tabulate
+  version: 0.10.0
+  manager: pip
+  platform: linux-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/99/55/db07de81b5c630da5cbf5c7df646580ca26dfaefa593667fc6f2fe016d2e/tabulate-0.10.0-py3-none-any.whl
+  hash:
+    sha256: f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3
+  category: main
+  optional: false
+- name: tabulate
+  version: 0.10.0
+  manager: pip
+  platform: osx-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/99/55/db07de81b5c630da5cbf5c7df646580ca26dfaefa593667fc6f2fe016d2e/tabulate-0.10.0-py3-none-any.whl
+  hash:
+    sha256: f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3
+  category: main
+  optional: false
+- name: tabulate
+  version: 0.10.0
+  manager: pip
+  platform: osx-arm64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/99/55/db07de81b5c630da5cbf5c7df646580ca26dfaefa593667fc6f2fe016d2e/tabulate-0.10.0-py3-none-any.whl
+  hash:
+    sha256: f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3
+  category: main
+  optional: false
+- name: tabulate
+  version: 0.10.0
+  manager: pip
+  platform: win-64
+  dependencies: {}
+  url: https://files.pythonhosted.org/packages/99/55/db07de81b5c630da5cbf5c7df646580ca26dfaefa593667fc6f2fe016d2e/tabulate-0.10.0-py3-none-any.whl
+  hash:
+    sha256: f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3
+  category: main
+  optional: false
+- name: typeguard
+  version: 4.5.1
+  manager: pip
+  platform: linux-64
+  dependencies:
+    typing-extensions: '>=4.14.0'
+  url: https://files.pythonhosted.org/packages/91/88/b55b3117287a8540b76dbdd87733808d4d01c8067a3b339408c250bb3600/typeguard-4.5.1-py3-none-any.whl
+  hash:
+    sha256: 44d2bf329d49a244110a090b55f5f91aa82d9a9834ebfd30bcc73651e4a8cc40
+  category: main
+  optional: false
+- name: typeguard
+  version: 4.5.1
+  manager: pip
+  platform: osx-64
+  dependencies:
+    typing-extensions: '>=4.14.0'
+  url: https://files.pythonhosted.org/packages/91/88/b55b3117287a8540b76dbdd87733808d4d01c8067a3b339408c250bb3600/typeguard-4.5.1-py3-none-any.whl
+  hash:
+    sha256: 44d2bf329d49a244110a090b55f5f91aa82d9a9834ebfd30bcc73651e4a8cc40
+  category: main
+  optional: false
+- name: typeguard
+  version: 4.5.1
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    typing-extensions: '>=4.14.0'
+  url: https://files.pythonhosted.org/packages/91/88/b55b3117287a8540b76dbdd87733808d4d01c8067a3b339408c250bb3600/typeguard-4.5.1-py3-none-any.whl
+  hash:
+    sha256: 44d2bf329d49a244110a090b55f5f91aa82d9a9834ebfd30bcc73651e4a8cc40
+  category: main
+  optional: false
+- name: typeguard
+  version: 4.5.1
+  manager: pip
+  platform: win-64
+  dependencies:
+    typing-extensions: '>=4.14.0'
+  url: https://files.pythonhosted.org/packages/91/88/b55b3117287a8540b76dbdd87733808d4d01c8067a3b339408c250bb3600/typeguard-4.5.1-py3-none-any.whl
+  hash:
+    sha256: 44d2bf329d49a244110a090b55f5f91aa82d9a9834ebfd30bcc73651e4a8cc40
+  category: main
+  optional: false
+- name: typing-inspect
+  version: 0.9.0
+  manager: pip
+  platform: linux-64
+  dependencies:
+    mypy-extensions: '>=0.3.0'
+    typing-extensions: '>=3.7.4'
+  url: https://files.pythonhosted.org/packages/65/f3/107a22063bf27bdccf2024833d3445f4eea42b2e598abfbd46f6a63b6cb0/typing_inspect-0.9.0-py3-none-any.whl
+  hash:
+    sha256: 9ee6fc59062311ef8547596ab6b955e1b8aa46242d854bfc78f4f6b0eff35f9f
+  category: main
+  optional: false
+- name: typing-inspect
+  version: 0.9.0
+  manager: pip
+  platform: osx-64
+  dependencies:
+    mypy-extensions: '>=0.3.0'
+    typing-extensions: '>=3.7.4'
+  url: https://files.pythonhosted.org/packages/65/f3/107a22063bf27bdccf2024833d3445f4eea42b2e598abfbd46f6a63b6cb0/typing_inspect-0.9.0-py3-none-any.whl
+  hash:
+    sha256: 9ee6fc59062311ef8547596ab6b955e1b8aa46242d854bfc78f4f6b0eff35f9f
+  category: main
+  optional: false
+- name: typing-inspect
+  version: 0.9.0
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    mypy-extensions: '>=0.3.0'
+    typing-extensions: '>=3.7.4'
+  url: https://files.pythonhosted.org/packages/65/f3/107a22063bf27bdccf2024833d3445f4eea42b2e598abfbd46f6a63b6cb0/typing_inspect-0.9.0-py3-none-any.whl
+  hash:
+    sha256: 9ee6fc59062311ef8547596ab6b955e1b8aa46242d854bfc78f4f6b0eff35f9f
+  category: main
+  optional: false
+- name: typing-inspect
+  version: 0.9.0
+  manager: pip
+  platform: win-64
+  dependencies:
+    mypy-extensions: '>=0.3.0'
+    typing-extensions: '>=3.7.4'
+  url: https://files.pythonhosted.org/packages/65/f3/107a22063bf27bdccf2024833d3445f4eea42b2e598abfbd46f6a63b6cb0/typing_inspect-0.9.0-py3-none-any.whl
+  hash:
+    sha256: 9ee6fc59062311ef8547596ab6b955e1b8aa46242d854bfc78f4f6b0eff35f9f
+  category: main
+  optional: false
+- name: typing-inspection
+  version: 0.4.2
+  manager: pip
+  platform: linux-64
+  dependencies:
+    typing-extensions: '>=4.12.0'
+  url: https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl
+  hash:
+    sha256: 4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7
+  category: main
+  optional: false
+- name: typing-inspection
+  version: 0.4.2
+  manager: pip
+  platform: osx-64
+  dependencies:
+    typing-extensions: '>=4.12.0'
+  url: https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl
+  hash:
+    sha256: 4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7
+  category: main
+  optional: false
+- name: typing-inspection
+  version: 0.4.2
+  manager: pip
+  platform: osx-arm64
+  dependencies:
+    typing-extensions: '>=4.12.0'
+  url: https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl
+  hash:
+    sha256: 4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7
+  category: main
+  optional: false
+- name: typing-inspection
+  version: 0.4.2
+  manager: pip
+  platform: win-64
+  dependencies:
+    typing-extensions: '>=4.12.0'
+  url: https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl
+  hash:
+    sha256: 4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7
   category: main
   optional: false
 - name: ucimlrepo

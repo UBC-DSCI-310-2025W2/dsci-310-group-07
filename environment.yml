@@ -12,4 +12,5 @@ dependencies:
       - ucimlrepo==0.0.7
       - pytest==9.0.2
       - tabulate==0.10.0
+      - pandera==0.30.1
       - dsci310-2025w2-winequalitypy @ git+https://github.com/UBC-DSCI-310-2025W2/winequalitypy.git@v0.0.1
